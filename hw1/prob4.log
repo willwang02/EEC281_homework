@@ -1,0 +1,73 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Jan 26, 2025 at 00:08:27 PST
+ncverilog
+	+access+r
+	-l
+	prob4.log
+	-f prob4.vf
+		prob4.v
+		prob4_tbench.vt
+Recompiling... reason: file './prob4_tbench.vt' is newer than expected.
+	expected: Sun Jan 26 00:07:21 2025
+	actual:   Sun Jan 26 00:08:26 2025
+file: prob4_tbench.vt
+	module worklib.prob4_tbench:vt
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.prob4_tbench:vt <0x4df3cb58>
+			streams:   8, words:  7419
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 4       3
+		Registers:               6       6
+		Scalar wires:           10       -
+		Initial blocks:          2       2
+		Cont. assignments:       0       2
+		Pseudo assignments:      5       5
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.prob4_tbench:vt
+Loading snapshot worklib.prob4_tbench:vt .................... Done
+ncsim> source /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+a 	 | b 	 | c 	 | d 	 | ci 	 || co 	 | c1 	 | s
+ 0 	 | 0 	 | 0 	 | 0 	 | 0 	 || 0 	 | 0 	 | 0
+ 0 	 | 0 	 | 0 	 | 0 	 | 1 	 || 0 	 | 0 	 | 1
+ 0 	 | 0 	 | 0 	 | 1 	 | 0 	 || 0 	 | 0 	 | 1
+ 0 	 | 0 	 | 0 	 | 1 	 | 1 	 || 0 	 | 1 	 | 0
+ 0 	 | 0 	 | 1 	 | 0 	 | 0 	 || 0 	 | 0 	 | 1
+ 0 	 | 0 	 | 1 	 | 0 	 | 1 	 || 0 	 | 1 	 | 0
+ 0 	 | 0 	 | 1 	 | 1 	 | 0 	 || 0 	 | 1 	 | 0
+ 0 	 | 0 	 | 1 	 | 1 	 | 1 	 || 0 	 | 1 	 | 1
+ 0 	 | 1 	 | 0 	 | 0 	 | 0 	 || 0 	 | 0 	 | 1
+ 0 	 | 1 	 | 0 	 | 0 	 | 1 	 || 0 	 | 1 	 | 0
+ 0 	 | 1 	 | 0 	 | 1 	 | 0 	 || 0 	 | 1 	 | 0
+ 0 	 | 1 	 | 0 	 | 1 	 | 1 	 || 0 	 | 1 	 | 1
+ 0 	 | 1 	 | 1 	 | 0 	 | 0 	 || 1 	 | 0 	 | 0
+ 0 	 | 1 	 | 1 	 | 0 	 | 1 	 || 1 	 | 0 	 | 1
+ 0 	 | 1 	 | 1 	 | 1 	 | 0 	 || 1 	 | 0 	 | 1
+ 0 	 | 1 	 | 1 	 | 1 	 | 1 	 || 1 	 | 1 	 | 0
+ 1 	 | 0 	 | 0 	 | 0 	 | 0 	 || 0 	 | 0 	 | 1
+ 1 	 | 0 	 | 0 	 | 0 	 | 1 	 || 0 	 | 1 	 | 0
+ 1 	 | 0 	 | 0 	 | 1 	 | 0 	 || 0 	 | 1 	 | 0
+ 1 	 | 0 	 | 0 	 | 1 	 | 1 	 || 0 	 | 1 	 | 1
+ 1 	 | 0 	 | 1 	 | 0 	 | 0 	 || 1 	 | 0 	 | 0
+ 1 	 | 0 	 | 1 	 | 0 	 | 1 	 || 1 	 | 0 	 | 1
+ 1 	 | 0 	 | 1 	 | 1 	 | 0 	 || 1 	 | 0 	 | 1
+ 1 	 | 0 	 | 1 	 | 1 	 | 1 	 || 1 	 | 1 	 | 0
+ 1 	 | 1 	 | 0 	 | 0 	 | 0 	 || 1 	 | 0 	 | 0
+ 1 	 | 1 	 | 0 	 | 0 	 | 1 	 || 1 	 | 0 	 | 1
+ 1 	 | 1 	 | 0 	 | 1 	 | 0 	 || 1 	 | 0 	 | 1
+ 1 	 | 1 	 | 0 	 | 1 	 | 1 	 || 1 	 | 1 	 | 0
+ 1 	 | 1 	 | 1 	 | 0 	 | 0 	 || 1 	 | 0 	 | 1
+ 1 	 | 1 	 | 1 	 | 0 	 | 1 	 || 1 	 | 1 	 | 0
+ 1 	 | 1 	 | 1 	 | 1 	 | 0 	 || 1 	 | 1 	 | 0
+ 1 	 | 1 	 | 1 	 | 1 	 | 1 	 || 1 	 | 1 	 | 1
+Simulation complete via $finish(1) at time 3200 PS + 0
+./prob4_tbench.vt:36         $finish;
+ncsim> exit
+TOOL:	ncverilog	15.20-s031: Exiting on Jan 26, 2025 at 00:08:28 PST  (total: 00:00:01)

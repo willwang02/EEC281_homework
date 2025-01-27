@@ -1,0 +1,1 @@
+s1(25Jan2025:02:54:19):  ncverilog -c -l tbench.log -f tbench.vf 

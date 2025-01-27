@@ -1,0 +1,13 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Jan 25, 2025 at 02:54:19 PST
+ncverilog
+	-c
+	-l
+	tbench.log
+	-f tbench.vf
+		threetwo.v
+		threetwo4.v
+		prob1.v
+		prob1tbench.vt
+ncverilog: *E,FILEMIS: Cannot find the provided file prob1tbench.vt.
+TOOL:	ncverilog	15.20-s031: Exiting on Jan 25, 2025 at 02:54:19 PST  (total: 00:00:00)

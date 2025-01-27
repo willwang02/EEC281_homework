@@ -1,0 +1,46 @@
+`timescale 10ps/1ps
+
+module prob5_tbench;
+
+    reg     a;
+    reg     b;
+    reg     c;
+    reg     d;
+    reg     ci;
+    
+    wire    c1;
+    wire    co;
+    wire    s;
+
+    reg [5:0]   i;
+
+    fourtwo _fourtwo(
+        .a(a),
+        .b(b),
+        .c(c),
+        .d(d),
+        .ci(ci),
+        .co(co),
+        .c1(c1),
+        .s(s)
+    );
+    initial begin
+        for(i = 0;i <= 5'b11111; i = i + 1)begin
+            a = i[4];
+            b = i[3];
+            c = i[2];
+            d = i[1];
+            ci = i[0];
+            #10;
+        end
+        $finish;
+    end
+
+
+    initial begin
+        $write("a \t | b \t | c \t | d \t | ci \t || co \t | c1 \t | s\n");
+        $monitor(" %b \t | %b \t | %b \t | %b \t | %b \t || %b \t | %b \t | %b", 
+                  a, b, c, d, ci, co, c1, s);
+    end
+
+endmodule

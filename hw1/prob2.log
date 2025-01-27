@@ -1,0 +1,55 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Jan 25, 2025 at 21:09:52 PST
+ncverilog
+	+access+r
+	-l
+	prob2.log
+	-f prob2.vf
+		prob2.v
+		prob2_tbench.vt
+Recompiling... reason: file './prob2_tbench.vt' is newer than expected.
+	expected: Sat Jan 25 20:57:49 2025
+	actual:   Sat Jan 25 21:09:51 2025
+file: prob2_tbench.vt
+	module worklib.prob2_tbench:vt
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.prob2_tbench:vt <0x4644d3ac>
+			streams:   5, words: 10371
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 2       2
+		Registers:               3       3
+		Vectored wires:          3       -
+		Always blocks:           1       1
+		Initial blocks:          2       2
+		Pseudo assignments:      2       2
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.prob2_tbench:vt
+Loading snapshot worklib.prob2_tbench:vt .................... Done
+ncsim> source /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+Time: 0 | mantissa: 0100 | exp: 100 | out: 00000000100
+Time: 100 | mantissa: 1000 | exp: 011 | out: 10000000000
+Time: 200 | mantissa: 0111 | exp: 011 | out: 01110000000
+Time: 300 | mantissa: 1010 | exp: 111 | out: 11111010000
+Time: 400 | mantissa: 0100 | exp: 101 | out: 00000001000
+Time: 500 | mantissa: 1001 | exp: 010 | out: 11001000000
+Time: 600 | mantissa: 0110 | exp: 110 | out: 00000011000
+Time: 700 | mantissa: 0101 | exp: 100 | out: 00000000101
+Time: 800 | mantissa: 0101 | exp: 000 | out: 00001010000
+Time: 900 | mantissa: 0101 | exp: 011 | out: 01010000000
+Time: 1000 | mantissa: 1011 | exp: 100 | out: 11111111011
+Time: 1100 | mantissa: 1011 | exp: 000 | out: 11110110000
+Time: 1200 | mantissa: 1011 | exp: 011 | out: 10110000000
+Time: 1300 | mantissa: 1100 | exp: 110 | out: 11111110000
+Time: 1400 | mantissa: 1100 | exp: 011 | out: 11000000000
+Simulation complete via $finish(1) at time 1500 PS + 0
+./prob2_tbench.vt:32         #10 $finish;
+ncsim> exit
+TOOL:	ncverilog	15.20-s031: Exiting on Jan 25, 2025 at 21:09:53 PST  (total: 00:00:01)

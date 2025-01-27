@@ -1,0 +1,13 @@
+s1(25Jan2025:22:18:31):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s2(25Jan2025:22:19:30):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s3(25Jan2025:22:23:31):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s4(25Jan2025:22:24:28):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s5(25Jan2025:22:25:03):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s6(25Jan2025:22:25:19):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s7(25Jan2025:22:26:50):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s8(25Jan2025:22:27:39):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s9(25Jan2025:22:27:49):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s10(25Jan2025:22:28:13):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s11(25Jan2025:22:29:14):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s12(25Jan2025:22:30:25):  ncverilog +access+r -l prob3.log -f prob3.vf 
+s13(25Jan2025:22:31:01):  ncverilog +access+r -l prob3.log -f prob3.vf 

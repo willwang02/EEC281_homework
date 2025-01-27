@@ -1,0 +1,88 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Jan 26, 2025 at 02:10:01 PST
+ncverilog
+	+access+r
+	-l
+	prob6.log
+	-f prob6.vf
+		prob5.v
+		prob1.v
+		prob6.v
+		prob6_tbench.vt
+Recompiling... reason: file './prob6_tbench.vt' is newer than expected.
+	expected: Sun Jan 26 02:05:26 2025
+	actual:   Sun Jan 26 02:09:59 2025
+file: prob6_tbench.vt
+	module worklib.prob6_tbench:vt
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+    threetwo num00 (.a(a[0]),  .b(0),  .c(0),  .e(e[0]),  .f(f[0]));
+                                  |
+ncelab: *W,CUVMPW (./prob1.v,40|34): port sizes differ in port connection (32/1).
+    threetwo num00 (.a(a[0]),  .b(0),  .c(0),  .e(e[0]),  .f(f[0]));
+                                          |
+ncelab: *W,CUVMPW (./prob1.v,40|42): port sizes differ in port connection (32/1).
+    threetwo num04 (.a(0),  .b(_b[3]),  .c(c[3]),  .e(e[4]),  .f(f[4]));
+                       |
+ncelab: *W,CUVMPW (./prob1.v,44|23): port sizes differ in port connection (32/1).
+    fourtwo num00 (.a(a[0]),  .b(b[0]),  .c(c[0]),  .d(d[0]),  .ci(0),   .co(co[0]),  .c1(f[1]),  .s(e[0]));
+                                                                   |
+ncelab: *W,CUVMPW (./prob6.v,71|67): port sizes differ in port connection (32/1).
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.prob6_tbench:vt <0x3f30d499>
+			streams:   9, words: 36842
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                40       9
+		Registers:               7       7
+		Scalar wires:           76       -
+		Expanded wires:         24       6
+		Vectored wires:          3       -
+		Always blocks:           1       1
+		Initial blocks:          2       2
+		Cont. assignments:       5       8
+		Pseudo assignments:     18      15
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.prob1:v
+Loading snapshot worklib.prob1:v .................... Done
+ncsim> source /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+a | b | c | d | e | f || g
+ 0000 | 0000 | 0000 | 0000 | 0000 | 0000 || 000000
+ 0001 | 0000 | 0000 | 0000 | 0000 | 0000 || 000001
+ 0000 | 0001 | 0000 | 0000 | 0000 | 0000 || 000001
+ 0000 | 0000 | 0001 | 0000 | 0000 | 0000 || 000001
+ 0000 | 0000 | 0000 | 0001 | 0000 | 0000 || 000001
+ 0000 | 0000 | 0000 | 0000 | 0001 | 0000 || 000001
+ 0000 | 0000 | 0000 | 0000 | 0000 | 0001 || 000001
+ 1111 | 0000 | 0000 | 0000 | 0000 | 0000 || 111111
+ 0000 | 1111 | 0000 | 0000 | 0000 | 0000 || 111111
+ 0000 | 0000 | 1111 | 0000 | 0000 | 0000 || 111111
+ 0000 | 0000 | 0000 | 1111 | 0000 | 0000 || 111111
+ 0000 | 0000 | 0000 | 0000 | 1111 | 0000 || 111111
+ 0000 | 0000 | 0000 | 0000 | 0000 | 1111 || 111111
+ 0111 | 0000 | 0000 | 0000 | 0000 | 0000 || 000111
+ 0000 | 0111 | 0000 | 0000 | 0000 | 0000 || 000111
+ 0000 | 0000 | 0111 | 0000 | 0000 | 0000 || 000111
+ 0000 | 0000 | 0000 | 0111 | 0000 | 0000 || 000111
+ 0000 | 0000 | 0000 | 0000 | 0111 | 0000 || 000111
+ 0000 | 0000 | 0000 | 0000 | 0000 | 0111 || 000111
+ 1000 | 0000 | 0000 | 0000 | 0000 | 0000 || 111000
+ 0000 | 1000 | 0000 | 0000 | 0000 | 0000 || 111000
+ 0000 | 0000 | 1000 | 0000 | 0000 | 0000 || 111000
+ 0000 | 0000 | 0000 | 1000 | 0000 | 0000 || 111000
+ 0000 | 0000 | 0000 | 0000 | 1000 | 0000 || 111000
+ 0000 | 0000 | 0000 | 0000 | 0000 | 1000 || 111000
+ 0001 | 0001 | 0001 | 0001 | 0001 | 0001 || 000110
+ 1111 | 1111 | 1111 | 1111 | 1111 | 1111 || 111010
+ 0001 | 0010 | 0011 | 0100 | 0101 | 0110 || 010101
+ 0111 | 0100 | 0101 | 0101 | 0101 | 0101 || 011111
+ 1001 | 1011 | 1011 | 1011 | 1011 | 1011 || 100000
+Simulation complete via $finish(1) at time 3 NS + 0
+./prob6_tbench.vt:56         #10 $finish;
+ncsim> exit
+TOOL:	ncverilog	15.20-s031: Exiting on Jan 26, 2025 at 02:10:04 PST  (total: 00:00:03)

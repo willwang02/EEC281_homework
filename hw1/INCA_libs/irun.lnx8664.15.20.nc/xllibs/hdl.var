@@ -1,0 +1,6 @@
+define VIEW_MAP ( $VIEW_MAP \
+, .vt => vt \
+)
+define VIEW_MAP ( $VIEW_MAP \
+, .vt => vt \
+)

@@ -1,0 +1,40 @@
+`timescale 10ps/1ps
+
+module prob3_tbench;
+
+    wire [3:0]     mantissa;
+    wire [2:0]     exp;
+
+    reg [6:0]       in;
+
+    prob3 _prob3(
+        .in(in),
+        .mantissa(mantissa),
+        .exp(exp)
+    );
+    initial begin
+        in = 7'b0001000;
+        #10 in = 7'b0000001;
+        #10 in = 7'b0100000;
+        #10 in = 7'b1111111;
+        #10 in = 7'b0010000;
+        #10 in = 7'b0111000;
+        #10 in = 7'b0111111;
+        #10 in = 7'b0001010;
+        #10 in = 7'b1000011;
+        #10 in = 7'b0000101;
+        #10 in = 7'b0000010;
+        #10 in = 7'b1111110;
+        #10 in = 7'b1111100;
+        #10 in = 7'b1111000;
+        #10 in = 7'b1110000;
+        #10 $finish;
+    end
+
+
+    initial begin
+        $monitor("Time: %0t | in: %b | mantissa: %b | exp: %b", 
+                 $time, in, mantissa, exp);
+    end
+
+endmodule

@@ -1,0 +1,41 @@
+`timescale 10ps/1ps
+
+module prob2_tbench;
+
+    reg [3:0]     mantissa;
+    reg [2:0]     exp;
+
+    wire [10:0]    out;
+
+    prob2 _prob2(
+        .mantissa(mantissa),
+        .exp(exp),
+        .out(out)
+    );
+    initial begin
+
+        mantissa = 4'b0100; exp = 3'b100;       //minimum attainable positive (non-zero) value
+        #10 mantissa = 4'b1000; exp = 3'b011;   //minimum attainable negative value
+        #10 mantissa = 4'b0111; exp = 3'b011;   //maximum attainable positive value
+        #10 mantissa = 4'b1010; exp = 3'b111;
+        #10 mantissa = 4'b0100; exp = 3'b101;
+        #10 mantissa = 4'b1001; exp = 3'b010;
+        #10 mantissa = 4'b0110; exp = 3'b110;
+        #10 mantissa = 4'b0101; exp = 3'b100;
+        #10 mantissa = 4'b0101; exp = 3'b000;
+        #10 mantissa = 4'b0101; exp = 3'b011;
+        #10 mantissa = 4'b1011; exp = 3'b100;
+        #10 mantissa = 4'b1011; exp = 3'b000;
+        #10 mantissa = 4'b1011; exp = 3'b011;
+        #10 mantissa = 4'b1100; exp = 3'b110;
+        #10 mantissa = 4'b1100; exp = 3'b011;
+        #10 $finish;
+    end
+
+
+    initial begin
+        $monitor("Time: %0t | mantissa: %b | exp: %b | out: %b", 
+                 $time, mantissa, exp, out);
+    end
+
+endmodule
