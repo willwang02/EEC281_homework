@@ -1,0 +1,13 @@
+ 
+****************************************
+Report : hierarchy
+Design : prob1_b
+Version: W-2024.09-SP1
+Date   : Fri Feb  7 15:30:46 2025
+****************************************
+
+prob1_b
+    AOI22_X1         NangateOpenCellLibrary
+    INV_X1           NangateOpenCellLibrary
+    XOR2_X1          NangateOpenCellLibrary
+1

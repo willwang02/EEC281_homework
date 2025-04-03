@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : hierarchy
+Design : prob2
+Version: W-2024.09-SP1
+Date   : Sun Feb  9 13:21:12 2025
+****************************************
+
+prob2
+    AND2_X1           NangateOpenCellLibrary
+    AND3_X1           NangateOpenCellLibrary
+    AOI21_X1          NangateOpenCellLibrary
+    BUF_X1            NangateOpenCellLibrary
+    CLKBUF_X1         NangateOpenCellLibrary
+    DFF_X1            NangateOpenCellLibrary
+    FA_X1             NangateOpenCellLibrary
+    INV_X1            NangateOpenCellLibrary
+    NAND2_X1          NangateOpenCellLibrary
+    NAND3_X1          NangateOpenCellLibrary
+    NOR2_X1           NangateOpenCellLibrary
+    NOR3_X1           NangateOpenCellLibrary
+    OAI21_X1          NangateOpenCellLibrary
+    OAI22_X1          NangateOpenCellLibrary
+    OAI211_X1         NangateOpenCellLibrary
+    OAI221_X1         NangateOpenCellLibrary
+    OR2_X1            NangateOpenCellLibrary
+    XNOR2_X1          NangateOpenCellLibrary
+    XNOR2_X2          NangateOpenCellLibrary
+    XOR2_X1           NangateOpenCellLibrary
+1

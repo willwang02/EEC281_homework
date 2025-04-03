@@ -1,0 +1,65 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Mar 20, 2025 at 17:42:33 PDT
+ncverilog
+	+access+r
+	-l
+	prob2.logv
+	-f prob2.vfv
+		prob2.v
+		memory.v
+		prob2_tbench.v
+Recompiling... reason: file './prob2_tbench.v' is newer than expected.
+	expected: Thu Mar 20 17:27:15 2025
+	actual:   Thu Mar 20 17:42:32 2025
+file: prob2_tbench.v
+	module worklib.prob2_tbench:v
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.prob2_tbench:v <0x19c6c3bb>
+			streams:   5, words: 51277
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 4       3
+		Registers:              42      40
+		Scalar wires:            4       -
+		Vectored wires:         11       -
+		Always blocks:           6       5
+		Initial blocks:          1       1
+		Pseudo assignments:      3       3
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.prob2_tbench:v
+Loading snapshot worklib.prob2_tbench:v .................... Done
+ncsim> source /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+go start
+
+data_type == 3 start
+
+      29365       19768       28112      -29959     -144388      -41970      -30082
+    -125837      -35993       36414     -138051        8213      -85921      -82326
+     -74384      -16452      -43546      -76804     -123662      -23286      -74481
+    -101378       32321     -209081      -99172      -17720     -132176      -22096
+    -168578      -43504     -138967      -25643      -44930      -28933     -119788
+      62215       40351      -48912     -151844       -9949      -83100        8952
+     -99188       40946      -37872     -116204      -84058      -22067       -7495
+
+      29365       19768       28112           0           0           0           0
+          0           0       36414           0        8213           0           0
+          0           0           0           0           0           0           0
+          0       32321           0           0           0           0           0
+          0           0           0           0           0           0           0
+      62215       40351           0           0           0           0        8952
+          0       40946           0           0           0           0           0
+
+     36414      36414       8213
+     32321          0          0
+     62215          0       8952
+Simulation complete via $finish(1) at time 4708 NS + 0
+./prob2_tbench.v:176         $finish;
+ncsim> exit
+TOOL:	ncverilog	15.20-s031: Exiting on Mar 20, 2025 at 17:42:38 PDT  (total: 00:00:05)

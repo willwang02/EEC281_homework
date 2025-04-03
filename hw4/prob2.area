@@ -1,0 +1,35 @@
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+ 
+****************************************
+Report : area
+Design : prob2
+Version: W-2024.09-SP1
+Date   : Thu Mar 20 18:30:38 2025
+****************************************
+
+Information: Updating design information... (UID-85)
+Warning: Design 'prob2' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /software/Synopsys/DesignCompiler/EEC281/lib/nangate45/NangateOpenCellLibrary.db)
+
+Number of ports:                         3442
+Number of nets:                         31531
+Number of cells:                        24061
+Number of combinational cells:          16768
+Number of sequential cells:              7276
+Number of macros/black boxes:               0
+Number of buf/inv:                       3233
+Number of references:                      39
+
+Combinational area:              25370.016102
+Buf/Inv area:                     1874.502002
+Noncombinational area:           32889.302807
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                 58259.318910
+Total area:                 undefined
+
+Information: This design contains black box (unknown) components. (RPT-8)
+1

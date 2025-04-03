@@ -1,0 +1,18 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : W-2024.09-SP1
+// Date      : Fri Feb  7 15:30:46 2025
+/////////////////////////////////////////////////////////////
+
+
+module prob1_b ( a, b, c, d, e );
+  input a, b, c;
+  output d, e;
+  wire   n4, n5;
+
+  INV_X1 U5 ( .A(n4), .ZN(e) );
+  AOI22_X1 U6 ( .A1(b), .A2(a), .B1(n5), .B2(c), .ZN(n4) );
+  XOR2_X1 U7 ( .A(c), .B(n5), .Z(d) );
+  XOR2_X1 U8 ( .A(a), .B(b), .Z(n5) );
+endmodule
+

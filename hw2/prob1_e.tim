@@ -1,0 +1,236 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -nworst 10
+        -max_paths 10
+Design : prob1_e
+Version: W-2024.09-SP1
+Date   : Fri Feb  7 23:27:32 2025
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: b[11] (input port)
+  Endpoint: e[11] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[11] (in)                               0.00       0.00 f
+  U92/Z (XOR2_X1)                          0.08       0.08 f
+  U68/ZN (AOI22_X1)                        0.06       0.14 r
+  U67/ZN (INV_X1)                          0.02       0.17 f
+  e[11] (out)                              0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[10] (input port)
+  Endpoint: e[10] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[10] (in)                               0.00       0.00 f
+  U94/Z (XOR2_X1)                          0.08       0.08 f
+  U70/ZN (AOI22_X1)                        0.06       0.14 r
+  U69/ZN (INV_X1)                          0.02       0.17 f
+  e[10] (out)                              0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[9] (input port)
+  Endpoint: e[9] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[9] (in)                                0.00       0.00 f
+  U74/Z (XOR2_X1)                          0.08       0.08 f
+  U50/ZN (AOI22_X1)                        0.06       0.14 r
+  U49/ZN (INV_X1)                          0.02       0.17 f
+  e[9] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[8] (input port)
+  Endpoint: e[8] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[8] (in)                                0.00       0.00 f
+  U76/Z (XOR2_X1)                          0.08       0.08 f
+  U52/ZN (AOI22_X1)                        0.06       0.14 r
+  U51/ZN (INV_X1)                          0.02       0.17 f
+  e[8] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[7] (input port)
+  Endpoint: e[7] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[7] (in)                                0.00       0.00 f
+  U78/Z (XOR2_X1)                          0.08       0.08 f
+  U54/ZN (AOI22_X1)                        0.06       0.14 r
+  U53/ZN (INV_X1)                          0.02       0.17 f
+  e[7] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[6] (input port)
+  Endpoint: e[6] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[6] (in)                                0.00       0.00 f
+  U80/Z (XOR2_X1)                          0.08       0.08 f
+  U56/ZN (AOI22_X1)                        0.06       0.14 r
+  U55/ZN (INV_X1)                          0.02       0.17 f
+  e[6] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[5] (input port)
+  Endpoint: e[5] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[5] (in)                                0.00       0.00 f
+  U82/Z (XOR2_X1)                          0.08       0.08 f
+  U58/ZN (AOI22_X1)                        0.06       0.14 r
+  U57/ZN (INV_X1)                          0.02       0.17 f
+  e[5] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[4] (input port)
+  Endpoint: e[4] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[4] (in)                                0.00       0.00 f
+  U84/Z (XOR2_X1)                          0.08       0.08 f
+  U60/ZN (AOI22_X1)                        0.06       0.14 r
+  U59/ZN (INV_X1)                          0.02       0.17 f
+  e[4] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[3] (input port)
+  Endpoint: e[3] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[3] (in)                                0.00       0.00 f
+  U86/Z (XOR2_X1)                          0.08       0.08 f
+  U62/ZN (AOI22_X1)                        0.06       0.14 r
+  U61/ZN (INV_X1)                          0.02       0.17 f
+  e[3] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: b[2] (input port)
+  Endpoint: e[2] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  prob1_e            5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  b[2] (in)                                0.00       0.00 f
+  U88/Z (XOR2_X1)                          0.08       0.08 f
+  U64/ZN (AOI22_X1)                        0.06       0.14 r
+  U63/ZN (INV_X1)                          0.02       0.17 f
+  e[2] (out)                               0.01       0.18 f
+  data arrival time                                   0.18
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+1

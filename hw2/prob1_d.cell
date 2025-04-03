@@ -1,0 +1,47 @@
+ 
+****************************************
+Report : cell
+Design : prob1_d
+Version: W-2024.09-SP1
+Date   : Fri Feb  7 15:49:42 2025
+****************************************
+
+Attributes:
+    b - black box (unknown)
+    h - hierarchical
+   mo - map_only
+    n - noncombinational
+    r - removable
+    u - contains unmapped logic
+
+Cell                      Reference       Library             Area  Attributes
+--------------------------------------------------------------------------------
+U1_1                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_2                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_3                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_4                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_5                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_6                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_7                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_8                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_9                      FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_10                     FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U1_11                     FA_X1           NangateOpenCellLibrary
+                                                          4.256000  mo, r
+U2                        XOR2_X1         NangateOpenCellLibrary
+                                                          1.596000  
+U11                       AND2_X1         NangateOpenCellLibrary
+                                                          1.064000  
+--------------------------------------------------------------------------------
+Total 13 cells                                            49.476000
+1

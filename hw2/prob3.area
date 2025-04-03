@@ -1,0 +1,31 @@
+ 
+****************************************
+Report : area
+Design : prob3
+Version: W-2024.09-SP1
+Date   : Sun Feb  9 13:45:49 2025
+****************************************
+
+Information: Updating design information... (UID-85)
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /software/Synopsys/DesignCompiler/EEC281/lib/nangate45/NangateOpenCellLibrary.db)
+
+Number of ports:                           37
+Number of nets:                           281
+Number of cells:                          236
+Number of combinational cells:            200
+Number of sequential cells:                36
+Number of macros/black boxes:               0
+Number of buf/inv:                         47
+Number of references:                      26
+
+Combinational area:                207.746000
+Buf/Inv area:                       27.930000
+Noncombinational area:             166.249994
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                   373.995994
+Total area:                 undefined
+1

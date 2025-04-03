@@ -1,0 +1,7 @@
+define NCSIMRC	( /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc, ~/.ncsimrc )
+include ./hdlrun.var
+define SNAPSHOT worklib.prob6_tbench:v
+DEFINE RUNMODEDEFAULT 1
+DEFINE LIB_MAP ( + => worklib )
+define ELAB_SNAPSHOT
+define SNAPSHOT worklib.prob6_tbench:v

@@ -1,0 +1,32 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Feb 08, 2025 at 19:01:09 PST
+ncverilog
+	-c
+	-l
+	prob7.logs.chk
+	-f prob7.vfs
+		prob7.v
+Recompiling... reason: file './prob7.v' is newer than expected.
+	expected: Sat Feb  8 18:57:30 2025
+	actual:   Sat Feb  8 19:01:07 2025
+file: prob7.v
+	module worklib.prob7:v
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.prob7:v <0x50824682>
+			streams:   0, words:     0
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 1       1
+		Registers:               2       2
+		Scalar wires:            1       -
+		Always blocks:           1       1
+		Cont. assignments:       0       1
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.prob7:v
+TOOL:	ncverilog	15.20-s031: Exiting on Feb 08, 2025 at 19:01:09 PST  (total: 00:00:00)

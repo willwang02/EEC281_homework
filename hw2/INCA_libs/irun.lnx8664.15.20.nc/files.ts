@@ -1,0 +1,16 @@
+1739132870 /home/will02/Documents/hw2/prob1_a.v
+1738970912 /home/will02/Documents/hw2/prob1_b.v
+1739047977 /home/will02/Documents/hw2/prob1_c.v
+1738972139 /home/will02/Documents/hw2/prob1_d.v
+1738999640 /home/will02/Documents/hw2/prob1_e.v
+1739003029 /home/will02/Documents/hw2/prob1_f.v
+1739003094 /home/will02/Documents/hw2/prob1_g.v
+1739136016 /home/will02/Documents/hw2/prob2.v
+1739135575 /home/will02/Documents/hw2/prob2_tbench.v
+1739137485 /home/will02/Documents/hw2/prob3.v
+1739137845 /home/will02/Documents/hw2/prob3_tbench.v
+1739138754 /home/will02/Documents/hw2/prob4.v
+1739137894 /home/will02/Documents/hw2/prob4_tbench.v
+1739139089 /home/will02/Documents/hw2/prob5.v
+1739138921 /home/will02/Documents/hw2/prob5_tbench.v
+1739070067 /home/will02/Documents/hw2/prob7.v

@@ -1,0 +1,44 @@
+ 
+****************************************
+Report : cell
+Design : prob1_a
+Version: W-2024.09-SP1
+Date   : Fri Feb  7 15:29:50 2025
+****************************************
+
+Attributes:
+    b - black box (unknown)
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    u - contains unmapped logic
+
+Cell                      Reference       Library             Area  Attributes
+--------------------------------------------------------------------------------
+U13                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U14                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U15                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U16                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U17                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U18                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U19                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U20                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U21                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U22                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U23                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+U24                       NOR2_X1         NangateOpenCellLibrary
+                                                          0.798000  
+--------------------------------------------------------------------------------
+Total 12 cells                                            9.576000
+1

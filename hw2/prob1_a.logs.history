@@ -1,0 +1,7 @@
+s1(07Feb2025:15:00:16):  ncverilog -c -l prob1_a.logs.chk -f prob1_a.vfs 
+s2(07Feb2025:15:20:03):  ncverilog -c -l prob1_a.logs.chk -f prob1_a.vfs 
+s3(07Feb2025:15:23:54):  ncverilog -c -l prob1_a.logs.chk -f prob1_a.vfs 
+s4(07Feb2025:15:24:30):  ncverilog -c -l prob1_a.logs.chk -f prob1_a.vfs 
+s5(07Feb2025:15:25:25):  ncverilog -c -l prob1_a.logs.chk -f prob1_a.vfs 
+s6(07Feb2025:15:28:52):  ncverilog -c -l prob1_a.logs.chk -f prob1_a.vfs 
+s7(07Feb2025:15:29:38):  ncverilog -c -l prob1_a.logs.chk -f prob1_a.vfs 

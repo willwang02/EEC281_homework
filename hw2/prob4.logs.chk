@@ -1,0 +1,32 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Feb 09, 2025 at 13:57:55 PST
+ncverilog
+	-c
+	-l
+	prob4.logs.chk
+	-f prob4.vfs
+		prob1_c.v
+		prob4.v
+file: prob4.v
+	module worklib.prob4:v
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.prob4:v <0x6df1934f>
+			streams:   0, words:     0
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                26       3
+		Registers:               3       3
+		Scalar wires:           47       -
+		Expanded wires:         48      12
+		Vectored wires:         20       -
+		Always blocks:           1       1
+		Cont. assignments:       0       5
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.prob4:v
+TOOL:	ncverilog	15.20-s031: Exiting on Feb 09, 2025 at 13:57:56 PST  (total: 00:00:01)

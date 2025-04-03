@@ -1,0 +1,32 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Mar 02, 2025 at 20:33:20 PST
+ncverilog
+	+access+r
+	-l
+	prob4.logv
+	-f prob4.vfv
+		prob4.v
+		prob4_tbench.v
+Loading snapshot worklib.prob4_tbench:v .................... Done
+ncsim> source /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+Time: 0 | a = x, b = x, out_hw = x)
+Time: 5100 | a = 0, b = 0, out_hw = 0)
+Time: 5200 | a = -1, b = 1, out_hw = -1)
+Time: 5300 | a = -8, b = 7, out_hw = -32)
+Time: 5400 | a = 7, b = 7, out_hw = 31)
+Time: 5500 | a = -8, b = -8, out_hw = 31)
+Time: 5600 | a = 2, b = 4, out_hw = 8)
+Time: 5700 | a = 2, b = -8, out_hw = -16)
+Time: 5800 | a = 6, b = 3, out_hw = 18)
+Time: 5900 | a = -4, b = 3, out_hw = -12)
+Time: 6000 | a = -4, b = 5, out_hw = -20)
+Time: 6100 | a = -6, b = 5, out_hw = -30)
+Time: 6200 | a = -2, b = 1, out_hw = -2)
+Time: 6300 | a = -2, b = 2, out_hw = -4)
+Time: 6400 | a = -2, b = 4, out_hw = -8)
+Time: 6500 | a = 5, b = 5, out_hw = 25)
+Simulation complete via $finish(1) at time 7500 PS + 0
+./prob4_tbench.v:27         $finish;
+ncsim> exit
+TOOL:	ncverilog	15.20-s031: Exiting on Mar 02, 2025 at 20:33:23 PST  (total: 00:00:03)

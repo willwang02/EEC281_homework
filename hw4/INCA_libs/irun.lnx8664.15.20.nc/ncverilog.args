@@ -1,0 +1,9 @@
+//
+// File created by:  ncverilog
+// Do not modify this file
+//
+-c
+-l
+prob2.logs.chk
+-f
+prob2.vfs

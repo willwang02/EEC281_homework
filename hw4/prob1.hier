@@ -1,0 +1,44 @@
+ 
+****************************************
+Report : hierarchy
+Design : prob1
+Version: W-2024.09-SP1
+Date   : Tue Mar 18 23:10:47 2025
+****************************************
+
+prob1
+    AND2_X1           NangateOpenCellLibrary
+    AND2_X2           NangateOpenCellLibrary
+    AND3_X1           NangateOpenCellLibrary
+    AND4_X1           NangateOpenCellLibrary
+    AOI21_X1          NangateOpenCellLibrary
+    AOI22_X1          NangateOpenCellLibrary
+    AOI211_X1         NangateOpenCellLibrary
+    AOI211_X4         NangateOpenCellLibrary
+    AOI221_X1         NangateOpenCellLibrary
+    AOI222_X1         NangateOpenCellLibrary
+    BUF_X1            NangateOpenCellLibrary
+    BUF_X2            NangateOpenCellLibrary
+    CLKBUF_X1         NangateOpenCellLibrary
+    CLKBUF_X3         NangateOpenCellLibrary
+    DFF_X1            NangateOpenCellLibrary
+    INV_X1            NangateOpenCellLibrary
+    INV_X2            NangateOpenCellLibrary
+    INV_X4            NangateOpenCellLibrary
+    NAND2_X1          NangateOpenCellLibrary
+    NAND3_X1          NangateOpenCellLibrary
+    NAND4_X1          NangateOpenCellLibrary
+    NOR2_X1           NangateOpenCellLibrary
+    NOR3_X1           NangateOpenCellLibrary
+    NOR4_X1           NangateOpenCellLibrary
+    NOR4_X2           NangateOpenCellLibrary
+    OAI21_X1          NangateOpenCellLibrary
+    OAI22_X1          NangateOpenCellLibrary
+    OAI211_X1         NangateOpenCellLibrary
+    OAI221_X1         NangateOpenCellLibrary
+    OAI222_X1         NangateOpenCellLibrary
+    OR2_X1            NangateOpenCellLibrary
+    OR3_X1            NangateOpenCellLibrary
+    OR4_X1            NangateOpenCellLibrary
+    OR4_X2            NangateOpenCellLibrary
+1

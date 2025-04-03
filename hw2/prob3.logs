@@ -1,0 +1,420 @@
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version W-2024.09-SP1 for linux64 - Oct 15, 2024 
+
+                    Copyright (c) 1988 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+Current time:       Sun Feb  9 13:45:47 2025
+Hostname:           coe-ece-2107-31
+CPU Model:          12th Gen Intel(R) Core(TM) i7-12700
+CPU Details:        Cores = 20 : Sockets = 1 : Cache Size = 25600 KB : Freq = 2.10 GHz
+OS:                 Linux 4.18.0-553.37.1.el8_10.x86_64
+RAM:                 15 GB (Free   0 GB)
+Swap:                 7 GB (Free   7 GB)
+Work Filesystem:    /home/will02 mounted to yonder.ucdavis.edu:/GFS_SATA_ECE_LTD/ugrad/will02
+Tmp Filesystem:     /tmp mounted to /dev/mapper/NVMe-tmp
+Work Disk:          1024 GB (Free 530 GB)
+Tmp Disk:            24 GB (Free  24 GB)
+
+CPU Load: 1%, Ram Free: 0 GB, Swap Free: 7 GB, Work Disk Free: 530 GB, Tmp Disk Free: 24 GB
+# dc-prob3.tcl script 
+#
+# 2018/02/15  Added *_ANALYZE_SECTION comments to new Makefile can automatically
+#             add .v files to dc-*.tcl. Also updated some comments.
+# 2017/02/14  Reduced output_delay to 4% and input_delay to 3% of the clock 
+#             cycle time so very short critical paths are visible in timing 
+#             reports. Also changed clock_skew from 250ps to 5% of cycle time 
+#             so it will scale with clock frequency.
+# 2017/02/10  Uncommented "analyze -format verilog ./proc.v" line. It seems to
+#             be needed only the first time synthesis is run.
+# 2017/02/04  Changes for NanGate 45 nm library including new timing parameters
+# 2012/02/22  Changed:
+#               ungroup -all -flatten -simple_names
+#             to:
+#               if { [sizeof_collection [get_cells * -filter 
+#                  "is_hierarchical==true"]] > 0 } {
+#                  ungroup -all -flatten -simple_names
+#                  }
+# 2010/02/16  Updated commented path to vtvtlib25.db
+# 2009/02/12  Many parts re-written in new tcl version by Zhibin Xiao
+# 2006/01/30  Updated /afs/.../vtvtlib25.db path to this quarter's path.
+# 2004/02/05  Updated /afs/.../vtvtlib25.db path to this quarter's path.
+# 2003/05/22  Increased input_setup from 500 to 6000 (external input delay
+#             now 6ns instead of 9.5ns) so input paths don't show up at the
+#             top of timing reports so often.
+# 2003/05/15  Cleaned up a little
+# 2003/05/14  Written
+#
+# Debugging
+# list -designs
+# list -libraries
+# list -files 
+#
+# Add if you like:
+# Annotates inputs, but doesn't propagate through design to clear warnings.
+#   set_switching_activity -toggle_rate 0.25 -clock "clk" { "in31a" }
+# More power info
+#   report_power -net
+#   report_power -hier
+#   set_max_delay
+#   write -format db -output prac.db
+#
+# Doesn't work quite the way I expect
+#   NameDesign = prac    Set variable ok, but how to concatenate?
+#   write_rtl -format verilog -output prac.vg
+#===== Set: make sure you change design name elsewhere in this file
+set NameDesign "prob3"
+prob3
+#===== Set some timing parameters
+set CLK "clk"
+clk
+#===== All values are in units of ns for NanGate 45 nm library
+set clk_period      0.1
+0.1
+set clock_skew      [expr {$clk_period} * 0.05 ]
+0.005
+set input_setup     [expr {$clk_period} * 0.97 ]
+0.097
+set output_delay    [expr {$clk_period} * 0.04 ]
+0.004
+set input_delay     [expr {$clk_period} - {$input_setup}]
+0.003
+# It appears one "analyze" command is needed for each .v file. This works best
+# (only?) with one command line per module.
+analyze -format verilog prob1_c.v
+Running PRESTO HDLC
+Compiling source file ./prob1_c.v
+Presto compilation completed successfully.
+Loading db file '/software/Synopsys/DesignCompiler/EEC281/lib/nangate45/NangateOpenCellLibrary.db'
+Information: Using CCS timing libraries. (TIM-024)
+Loading db file '/software/Synopsys/DesignCompiler/current/libraries/syn/dw_foundation.sldb'
+1
+analyze -format verilog prob3.v
+Running PRESTO HDLC
+Compiling source file ./prob3.v
+Warning:  ./prob3.v:28: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  ./prob3.v:29: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  ./prob3.v:30: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Presto compilation completed successfully.
+1
+elaborate $NameDesign
+Loading db file '/software/Synopsys/DesignCompiler/W-2024.09-SP1/libraries/syn/gtech.db'
+Loading db file '/software/Synopsys/DesignCompiler/W-2024.09-SP1/libraries/syn/standard.sldb'
+  Loading link library 'NangateOpenCellLibrary'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process in routine 'prob3' in file
+	 ./prob3.v'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|      a_reg_reg      | Flip-flop |  12   |  Y  | N  | None  | None  | N  |  27  |
+|      b_reg_reg      | Flip-flop |  12   |  Y  | N  | None  | None  | N  |  27  |
+|        c_reg        | Flip-flop |  12   |  Y  | N  | None  | None  | N  |  27  |
+==================================================================================
+Presto compilation completed successfully. (prob3)
+Module: prob3, Ports: 37, Input: 25, Output: 12, Inout: 0
+Module: prob3, Registers: 36, Async set/reset: 0, Sync set/reset: 0
+Information: Module prob3 report end. (ELAB-965)
+Elaborated 1 design.
+Current design is now 'prob3'.
+Information: Building the design 'ripple_carry_adder_6'. (HDL-193)
+Presto compilation completed successfully. (ripple_carry_adder_6)
+Module: ripple_carry_adder_6, Ports: 20, Input: 13, Output: 7, Inout: 0
+Module: ripple_carry_adder_6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Module ripple_carry_adder_6 report end. (ELAB-965)
+Information: Building the design 'prob1_c'. (HDL-193)
+Presto compilation completed successfully. (prob1_c)
+Module: prob1_c, Ports: 5, Input: 3, Output: 2, Inout: 0
+Module: prob1_c, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Module prob1_c report end. (ELAB-965)
+1
+current_design $NameDesign
+Current design is 'prob3'.
+{prob3}
+link
+
+  Linking design 'prob3'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  NangateOpenCellLibrary (library) /software/Synopsys/DesignCompiler/EEC281/lib/nangate45/NangateOpenCellLibrary.db
+  dw_foundation.sldb (library) /software/Synopsys/DesignCompiler/current/libraries/syn/dw_foundation.sldb
+
+1
+uniquify
+Information: Uniquified 3 instances of design 'ripple_carry_adder_6'. (OPT-1056)
+Information: Uniquified 18 instances of design 'prob1_c'. (OPT-1056)
+1
+if { [sizeof_collection [get_cells * -filter "is_hierarchical==true"]] > 0 } {
+   ungroup -all -flatten -simple_names
+   }
+Information: Updating graph... (UID-83)
+1
+set_max_area 0.0
+1
+#===== Timing and input/output load constraints
+create_clock $CLK -name $CLK -period $clk_period -waveform [list 0.0 [expr {$clk_period} / 2.0 ] ] 
+1
+set_clock_uncertainty $clock_skew $CLK
+1
+#set_clock_skew -plus_uncertainty $clock_skew $CLK
+#set_clock_skew -minus_uncertainty $clock_skew $CLK
+set_input_delay     $input_delay  -clock $CLK [all_inputs]
+1
+#remove_input_delay               -clock $CLK [all_inputs] 
+set_output_delay    $output_delay -clock $CLK [all_outputs]
+1
+set_load 1.5 [all_outputs]
+1
+compile -map_effort medium
+CPU Load: 1%, Ram Free: 0 GB, Swap Free: 7 GB, Work Disk Free: 530 GB, Tmp Disk Free: 24 GB
+Warning: Setting attribute 'fix_multiple_port_nets' on design 'prob3'. (UIO-59)
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | W-2024.09-DWBB_202409.1 |     *     |
+| Licensed DW Building Blocks        | W-2024.09-DWBB_202409.1 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler                                                                   |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 76                                     |
+| Number of User Hierarchies                              | 0                                      |
+| Sequential Cell Count                                   | 36                                     |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT Class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch Cells                              | 2                                      |
+| Number of Dont Touch Nets                               | 0                                      |
+| Number of Size Only Cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+====================================================================================================
+
+Information: There are 2 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'prob3'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+  Beginning Implementation Selection
+  ----------------------------------
+Module: DW01_add_width2, Ports: 8, Input: 5, Output: 3, Inout: 0
+Module: DW01_add_width2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
+Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_NAND2'
+  Processing 'DW01_NAND2'
+  Building model 'DW01_add_width2' (rpl)
+  Processing 'DW01_add_width2'
+  Processing 'DW01_add_width2_DW01_add_0'
+  Processing 'DW01_add_width2_DW01_add_1'
+  Processing 'DW01_add_width2_DW01_add_2'
+  Processing 'DW01_add_width2_DW01_add_3'
+  Processing 'DW01_add_width2_DW01_add_4'
+  Processing 'DW01_add_width2_DW01_add_5'
+  Processing 'DW01_add_width2_DW01_add_6'
+  Processing 'DW01_add_width2_DW01_add_7'
+  Processing 'DW01_add_width2_DW01_add_8'
+  Processing 'DW01_add_width2_DW01_add_9'
+  Processing 'DW01_add_width2_DW01_add_10'
+  Processing 'DW01_add_width2_DW01_add_11'
+  Processing 'DW01_add_width2_DW01_add_12'
+  Processing 'DW01_add_width2_DW01_add_13'
+  Processing 'DW01_add_width2_DW01_add_14'
+  Processing 'DW01_add_width2_DW01_add_15'
+  Processing 'DW01_add_width2_DW01_add_16'
+  Processing 'DW01_add_width2_DW01_add_17'
+
+  Beginning Mapping Optimizations  (Medium effort)
+  -------------------------------
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:02     388.1      0.49       5.0       0.0                          
+    0:00:02     383.3      0.50       5.1       0.0                          
+    0:00:02     383.3      0.50       5.1       0.0                          
+    0:00:02     383.3      0.50       5.1       0.0                          
+    0:00:02     383.3      0.50       5.1       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.0      0.49       5.0       0.0                          
+    0:00:02     378.0      0.49       5.0       0.0                          
+    0:00:02     377.7      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     378.8      0.49       5.0       0.0                          
+    0:00:02     380.1      0.48       5.0       0.0 c_reg[7]/D               
+    0:00:02     379.6      0.47       4.9       0.0 c_reg[11]/D              
+    0:00:02     379.8      0.47       4.9       0.0 c_reg[7]/D               
+    0:00:02     379.8      0.47       5.5       0.0                          
+    0:00:02     379.8      0.46       6.3       0.0 c_reg[11]/D              
+    0:00:02     379.8      0.46       6.3       0.0                          
+    0:00:02     379.6      0.46       6.3       0.0                          
+    0:00:02     379.6      0.46       6.3       0.0                          
+    0:00:02     379.6      0.46       6.2       0.0                          
+    0:00:02     378.3      0.46       6.1       0.0                          
+
+
+  Beginning Area-Recovery Phase  (max_area 0)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:02     378.3      0.46       6.1       0.0                          
+    0:00:02     378.3      0.46       6.1       0.0                          
+    0:00:02     375.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     374.3      0.46       6.1       0.0                          
+    0:00:02     373.2      0.46       6.1       0.0                          
+    0:00:02     373.2      0.46       6.1       0.0                          
+    0:00:02     373.2      0.46       6.1       0.0                          
+    0:00:02     373.2      0.46       6.1       0.0                          
+    0:00:02     373.2      0.46       6.1       0.0                          
+    0:00:02     373.2      0.46       6.1       0.0                          
+    0:00:02     373.2      0.46       6.1       0.0                          
+    0:00:02     374.0      0.46       6.1       0.0                          
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+CPU Load: 1%, Ram Free: 0 GB, Swap Free: 7 GB, Work Disk Free: 530 GB, Tmp Disk Free: 24 GB
+Information: Total number of MV cells in the design.
+----------------------------------------------------------------------------------------------------
+ MV Cells                                           Total Number                                   
+----------------------------------------------------------------------------------------------------
+ Level Shifter:                                     0                                             
+ Enable Level Shifter:                              0                                             
+ Isolation Cell:                                    0                                             
+ Retention Cell:                                    0                                             
+ Retention Clamp Cell:                              0                                             
+ Switch Cell:                                       0                                             
+ Always-On Cell:                                    0                                             
+ Repeater Cell:                                     0                                             
+
+----------------------------------------------------------------------------------------------------
+Unmapped MV Cells 
+----------------------------------------------------------------------------------------------------
+0 Isolation Cells are unmapped 
+0 Retention Clamp Cells are unmapped 
+----------------------------------------------------------------------------------------------------
+1
+# Comment "ungroup" line to maybe see some submodules
+if { [sizeof_collection [get_cells * -filter "is_hierarchical==true"]] > 0 } {
+   ungroup -all -flatten -simple_names
+   }
+# compile -map_effort medium    # May help, or maybe not
+#===== Reports
+write -format verilog -output prob3.vg -hierarchy $NameDesign
+Writing verilog file '/home/will02/Documents/hw2/prob3.vg'.
+1
+report_area               > prob3.area
+report_cell               > prob3.cell
+report_hierarchy          > prob3.hier
+report_net                > prob3.net
+report_power              > prob3.pow
+report_timing -nworst 10  > prob3.tim
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+check_design
+1
+exit
+
+Memory usage for this session 171 Mbytes.
+Memory usage for this session including child processes 171 Mbytes.
+CPU usage for this session 4 seconds ( 0.00 hours ).
+Elapsed time for this session 8 seconds ( 0.00 hours ).
+
+Thank you...

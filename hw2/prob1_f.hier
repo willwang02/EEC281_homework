@@ -1,0 +1,17 @@
+ 
+****************************************
+Report : hierarchy
+Design : prob1_f
+Version: W-2024.09-SP1
+Date   : Sat Feb  8 00:24:09 2025
+****************************************
+
+Attributes:
+    r - licensed design
+
+prob1_f            r
+    FA_X1           NangateOpenCellLibrary
+    HA_X1           NangateOpenCellLibrary
+    INV_X1          NangateOpenCellLibrary
+    NOR2_X1         NangateOpenCellLibrary
+1

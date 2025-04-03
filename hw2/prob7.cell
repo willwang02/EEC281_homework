@@ -1,0 +1,24 @@
+ 
+****************************************
+Report : cell
+Design : prob7
+Version: W-2024.09-SP1
+Date   : Sun Feb  9 14:37:06 2025
+****************************************
+
+Attributes:
+    b - black box (unknown)
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    u - contains unmapped logic
+
+Cell                      Reference       Library             Area  Attributes
+--------------------------------------------------------------------------------
+a_r_reg                   SDFF_X1         NangateOpenCellLibrary
+                                                          6.118000  n
+b_r_reg                   DFFRS_X1        NangateOpenCellLibrary
+                                                          6.384000  n
+--------------------------------------------------------------------------------
+Total 2 cells                                             12.502000
+1

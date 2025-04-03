@@ -1,0 +1,16 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : W-2024.09-SP1
+// Date      : Sun Feb  9 14:37:06 2025
+/////////////////////////////////////////////////////////////
+
+
+module prob7 ( clk, a, b );
+  input clk, a;
+  output b;
+  wire   a_r;
+
+  DFFRS_X1 b_r_reg ( .D(a_r), .CK(clk), .RN(1'b1), .SN(1'b1), .Q(b) );
+  SDFF_X1 a_r_reg ( .D(1'b0), .SI(a), .SE(1'b1), .CK(clk), .Q(a_r) );
+endmodule
+

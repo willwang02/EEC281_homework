@@ -1,0 +1,32 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Feb 09, 2025 at 13:44:38 PST
+ncverilog
+	+access+r
+	-l
+	prob3.logv
+	-f prob3.vfv
+		prob1_c.v
+		prob3.v
+		prob3_tbench.v
+Loading snapshot worklib.prob3_tbench:v .................... Done
+ncsim> source /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+Time: 10100 | Test 1: a = 3584, b = 1080, out_hw = 568, out_ref = 568, correct)
+Time: 12100 | Test 2: a = 2438, b = 3164, out_hw = 1506, out_ref = 1506, correct)
+Time: 14100 | Test 3: a = 1998, b = 1991, out_hw = 3989, out_ref = 3989, correct)
+Time: 16100 | Test 4: a = 3270, b = 755, out_hw = 4025, out_ref = 4025, correct)
+Time: 18100 | Test 5: a = 1987, b = 2143, out_hw = 34, out_ref = 34, correct)
+Time: 20100 | Test 6: a = 1351, b = 137, out_hw = 1488, out_ref = 1488, correct)
+Time: 22100 | Test 7: a = 3198, b = 2117, out_hw = 1155, out_ref = 1219, wrong)
+Time: 24100 | Test 8: a = 93, b = 401, out_hw = 494, out_ref = 494, correct)
+Time: 26100 | Test 9: a = 878, b = 655, out_hw = 1533, out_ref = 1533, correct)
+Time: 28100 | Test 10: a = 3388, b = 713, out_hw = 4037, out_ref = 5, wrong)
+Time: 30100 | Test 11: a = 1507, b = 732, out_hw = 2239, out_ref = 2239, correct)
+Time: 32100 | Test 12: a = 556, b = 95, out_hw = 587, out_ref = 651, wrong)
+Time: 34100 | Test 13: a = 17, b = 1489, out_hw = 1506, out_ref = 1506, correct)
+Time: 36100 | Test 14: a = 3840, b = 1233, out_hw = 977, out_ref = 977, correct)
+Time: 38100 | Test 15: a = 511, b = 561, out_hw = 1008, out_ref = 1072, wrong)
+Simulation complete via $finish(1) at time 138 NS + 0
+./prob3_tbench.v:41         $finish;
+ncsim> exit
+TOOL:	ncverilog	15.20-s031: Exiting on Feb 09, 2025 at 13:44:38 PST  (total: 00:00:00)

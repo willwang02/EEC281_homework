@@ -1,0 +1,58 @@
+ncverilog(64): 15.20-s031: (c) Copyright 1995-2017 Cadence Design Systems, Inc.
+TOOL:	ncverilog	15.20-s031: Started on Feb 09, 2025 at 13:20:18 PST
+ncverilog
+	+access+r
+	-l
+	prob2.logv
+	-f prob2.vfv
+		prob1_c.v
+		prob2.v
+		prob2_tbench.v
+Recompiling... reason: file './prob2.v' is newer than expected.
+	expected: Sun Feb  9 13:15:32 2025
+	actual:   Sun Feb  9 13:20:16 2025
+file: prob2.v
+	module worklib.prob2:v
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.prob2:v <0x6f60ec2f>
+			streams:   2, words:  3056
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                14       3
+		Registers:              12      12
+		Scalar wires:           51       -
+		Vectored wires:         15       -
+		Always blocks:           2       2
+		Initial blocks:          1       1
+		Cont. assignments:      24       3
+		Pseudo assignments:      1       1
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.prob2_tbench:v
+Loading snapshot worklib.prob2_tbench:v .................... Done
+ncsim> source /software/Cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+Time: 10100 | Test 1: a = 3072, b = 3185, out_hw = 2161, out_ref = 2161, correct)
+Time: 12100 | Test 2: a = 3284, b = 3889, out_hw = 3077, out_ref = 3077, correct)
+Time: 14100 | Test 3: a = 832, b = 1472, out_hw = 2304, out_ref = 2304, correct)
+Time: 16100 | Test 4: a = 452, b = 2337, out_hw = 2789, out_ref = 2789, correct)
+Time: 18100 | Test 5: a = 3219, b = 2810, out_hw = 1933, out_ref = 1933, correct)
+Time: 20100 | Test 6: a = 559, b = 3020, out_hw = 3579, out_ref = 3579, correct)
+Time: 22100 | Test 7: a = 2162, b = 1037, out_hw = 3199, out_ref = 3199, correct)
+Time: 24100 | Test 8: a = 2165, b = 709, out_hw = 2874, out_ref = 2874, correct)
+Time: 26100 | Test 9: a = 1356, b = 943, out_hw = 2299, out_ref = 2299, correct)
+Time: 28100 | Test 10: a = 1513, b = 2646, out_hw = 63, out_ref = 63, correct)
+Time: 30100 | Test 11: a = 2300, b = 470, out_hw = 2770, out_ref = 2770, correct)
+Time: 32100 | Test 12: a = 379, b = 3730, out_hw = 13, out_ref = 13, correct)
+Time: 34100 | Test 13: a = 451, b = 2449, out_hw = 2900, out_ref = 2900, correct)
+Time: 36100 | Test 14: a = 2096, b = 3233, out_hw = 1233, out_ref = 1233, correct)
+Time: 38100 | Test 15: a = 3372, b = 1635, out_hw = 911, out_ref = 911, correct)
+Simulation complete via $finish(1) at time 138 NS + 0
+./prob2_tbench.v:41         $finish;
+ncsim> exit
+TOOL:	ncverilog	15.20-s031: Exiting on Feb 09, 2025 at 13:20:19 PST  (total: 00:00:01)

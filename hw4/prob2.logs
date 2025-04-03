@@ -1,0 +1,1168 @@
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version W-2024.09-SP1 for linux64 - Oct 15, 2024 
+
+                    Copyright (c) 1988 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+Current time:       Thu Mar 20 18:29:05 2025
+Hostname:           coe-ece-2107-32
+CPU Model:          12th Gen Intel(R) Core(TM) i7-12700
+CPU Details:        Cores = 20 : Sockets = 1 : Cache Size = 25600 KB : Freq = 3.42 GHz
+OS:                 Linux 4.18.0-553.45.1.el8_10.x86_64
+RAM:                 15 GB (Free   0 GB)
+Swap:                 7 GB (Free   7 GB)
+Work Filesystem:    /home/will02 mounted to yonder.ucdavis.edu:/GFS_SATA_ECE_LTD/ugrad/will02
+Tmp Filesystem:     /tmp mounted to /dev/mapper/NVMe-tmp
+Work Disk:          1024 GB (Free 504 GB)
+Tmp Disk:            24 GB (Free  24 GB)
+
+CPU Load: 5%, Ram Free: 0 GB, Swap Free: 7 GB, Work Disk Free: 504 GB, Tmp Disk Free: 24 GB
+# dc-prob2.tcl script 
+#
+# 2018/02/15  Added *_ANALYZE_SECTION comments to new Makefile can automatically
+#             add .v files to dc-*.tcl. Also updated some comments.
+# 2017/02/14  Reduced output_delay to 4% and input_delay to 3% of the clock 
+#             cycle time so very short critical paths are visible in timing 
+#             reports. Also changed clock_skew from 250ps to 5% of cycle time 
+#             so it will scale with clock frequency.
+# 2017/02/10  Uncommented "analyze -format verilog ./proc.v" line. It seems to
+#             be needed only the first time synthesis is run.
+# 2017/02/04  Changes for NanGate 45 nm library including new timing parameters
+# 2012/02/22  Changed:
+#               ungroup -all -flatten -simple_names
+#             to:
+#               if { [sizeof_collection [get_cells * -filter 
+#                  "is_hierarchical==true"]] > 0 } {
+#                  ungroup -all -flatten -simple_names
+#                  }
+# 2010/02/16  Updated commented path to vtvtlib25.db
+# 2009/02/12  Many parts re-written in new tcl version by Zhibin Xiao
+# 2006/01/30  Updated /afs/.../vtvtlib25.db path to this quarter's path.
+# 2004/02/05  Updated /afs/.../vtvtlib25.db path to this quarter's path.
+# 2003/05/22  Increased input_setup from 500 to 6000 (external input delay
+#             now 6ns instead of 9.5ns) so input paths don't show up at the
+#             top of timing reports so often.
+# 2003/05/15  Cleaned up a little
+# 2003/05/14  Written
+#
+# Debugging
+# list -designs
+# list -libraries
+# list -files 
+#
+# Add if you like:
+# Annotates inputs, but doesn't propagate through design to clear warnings.
+#   set_switching_activity -toggle_rate 0.25 -clock "clk" { "in31a" }
+# More power info
+#   report_power -net
+#   report_power -hier
+#   set_max_delay
+#   write -format db -output prac.db
+#
+# Doesn't work quite the way I expect
+#   NameDesign = prac    Set variable ok, but how to concatenate?
+#   write_rtl -format verilog -output prac.vg
+#===== Set: make sure you change design name elsewhere in this file
+set NameDesign "prob2"
+prob2
+#===== Set some timing parameters
+set CLK "clk"
+clk
+#===== All values are in units of ns for NanGate 45 nm library
+set clk_period      2.415
+2.415
+set clock_skew      [expr {$clk_period} * 0.05 ]
+0.12075
+set input_setup     [expr {$clk_period} * 0.97 ]
+2.34255
+set output_delay    [expr {$clk_period} * 0.04 ]
+0.0966
+set input_delay     [expr {$clk_period} - {$input_setup}]
+0.07245
+# It appears one "analyze" command is needed for each .v file. This works best
+# (only?) with one command line per module.
+analyze -format verilog prob2.v
+Running PRESTO HDLC
+Compiling source file ./prob2.v
+Presto compilation completed successfully.
+Loading db file '/software/Synopsys/DesignCompiler/EEC281/lib/nangate45/NangateOpenCellLibrary.db'
+Information: Using CCS timing libraries. (TIM-024)
+Loading db file '/software/Synopsys/DesignCompiler/current/libraries/syn/dw_foundation.sldb'
+1
+elaborate $NameDesign
+Loading db file '/software/Synopsys/DesignCompiler/W-2024.09-SP1/libraries/syn/gtech.db'
+Loading db file '/software/Synopsys/DesignCompiler/W-2024.09-SP1/libraries/syn/standard.sldb'
+  Loading link library 'NangateOpenCellLibrary'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Warning:  ./prob2.v:288: signed to unsigned assignment occurs. (VER-318)
+$display output: go start
+
+
+Statistics for case statements in always block in file
+	'./prob2.v'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     63     |    auto/auto     | always block at line 60 |
+===========================================================
+
+Inferred memory devices in process in routine 'prob2' in file
+	 ./prob2.v'.
+===================================================================================
+|    Register Name     |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+===================================================================================
+|    filter_we_reg     |   Latch   |   1   |  N  | N  | None  | None  | -  |  60  |
+|     image_we_reg     |   Latch   |   1   |  N  | N  | None  | None  | -  |  60  |
+|      state_reg       | Flip-flop |   3   |  Y  | N  | None  | None  | N  | 109  |
+|       cnt_reg        | Flip-flop |  11   |  Y  | N  | None  | None  | N  | 109  |
+|     out_conv_reg     | Flip-flop | 1568  |  Y  | N  | None  | None  | N  | 125  |
+|    filter_din_reg    | Flip-flop |  88   |  Y  | N  | None  | None  | N  | 125  |
+|    image_addr_reg    | Flip-flop |  121  |  Y  | N  | None  | None  | N  | 125  |
+|    image_din_reg     | Flip-flop |  88   |  Y  | N  | None  | None  | N  | 125  |
+|     conv_out_reg     | Flip-flop | 1568  |  Y  | N  | None  | None  | N  | 125  |
+|       out_reg        | Flip-flop |  288  |  Y  | N  | None  | None  | N  | 125  |
+|     conv_cnt_reg     | Flip-flop |   6   |  Y  | N  | None  | None  | N  | 125  |
+|       row_reg        | Flip-flop |   4   |  Y  | N  | None  | None  | N  | 125  |
+|     out_relu_reg     | Flip-flop | 1568  |  Y  | N  | None  | None  | N  | 125  |
+|       idx_reg        | Flip-flop |   4   |  Y  | N  | None  | None  | N  | 125  |
+|     pos_cnt_reg      | Flip-flop |   4   |  Y  | N  | None  | None  | N  | 125  |
+| filter_base_addr_reg | Flip-flop |   7   |  Y  | N  | None  | None  | N  | 125  |
+| image_base_addr_reg  | Flip-flop |  11   |  Y  | N  | None  | None  | N  | 125  |
+|   filter_addr_reg    | Flip-flop |  77   |  Y  | N  | None  | None  | N  | 125  |
+|     relu_out_reg     | Flip-flop | 1568  |  Y  | N  | None  | None  | N  | 125  |
+|   max_pool_cnt_reg   | Flip-flop |  54   |  Y  | N  | None  | None  | N  | 125  |
+|       pos_reg        | Flip-flop |  45   |  Y  | N  | None  | None  | N  | 125  |
+|   out_max_pool_reg   | Flip-flop |  288  |  Y  | N  | None  | None  | N  | 125  |
+===================================================================================
+Presto compilation completed successfully. (prob2)
+Module: prob2, Ports: 3442, Input: 18, Output: 3424, Inout: 0
+Module: prob2, Registers: 7373, Async set/reset: 0, Sync set/reset: 0
+Information: Module prob2 report end. (ELAB-965)
+Module: prob2, Elapsed Time: 00:00:03, CPU Time: 00:00:03, Total Mem: 318.60 MB, Mem: 138.24 MB, Time: Thu Mar 20 18:29:09 2025
+Elaborated 1 design.
+Current design is now 'prob2'.
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=11". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=7". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+current_design $NameDesign
+Current design is 'prob2'.
+{prob2}
+link
+
+  Linking design 'prob2'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  NangateOpenCellLibrary (library) /software/Synopsys/DesignCompiler/EEC281/lib/nangate45/NangateOpenCellLibrary.db
+  dw_foundation.sldb (library) /software/Synopsys/DesignCompiler/current/libraries/syn/dw_foundation.sldb
+
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=11". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=7". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'memory' in 'prob2'. (LINK-5)
+0
+uniquify
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=11". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=7". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'memory' in 'prob2'. (LINK-5)
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+if { [sizeof_collection [get_cells * -filter "is_hierarchical==true"]] > 0 } {
+   ungroup -all -flatten -simple_names
+   }
+set_max_area 0.0
+1
+#===== Timing and input/output load constraints
+create_clock $CLK -name $CLK -period $clk_period -waveform [list 0.0 [expr {$clk_period} / 2.0 ] ] 
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+set_clock_uncertainty $clock_skew $CLK
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+#set_clock_skew -plus_uncertainty $clock_skew $CLK
+#set_clock_skew -minus_uncertainty $clock_skew $CLK
+set_input_delay     $input_delay  -clock $CLK [all_inputs]
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+#remove_input_delay               -clock $CLK [all_inputs] 
+set_output_delay    $output_delay -clock $CLK [all_outputs]
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+set_load 1.5 [all_outputs]
+1
+compile -map_effort medium
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+CPU Load: 7%, Ram Free: 0 GB, Swap Free: 7 GB, Work Disk Free: 504 GB, Tmp Disk Free: 24 GB
+Warning: Setting attribute 'fix_multiple_port_nets' on design 'prob2'. (UIO-59)
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | W-2024.09-DWBB_202409.1 |     *     |
+| Licensed DW Building Blocks        | W-2024.09-DWBB_202409.1 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler                                                                   |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 9982                                   |
+| Number of User Hierarchies                              | 0                                      |
+| Sequential Cell Count                                   | 7373                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT Class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch Cells                              | 365                                    |
+| Number of Dont Touch Nets                               | 0                                      |
+| Number of Size Only Cells                               | 376                                    |
+| Design with UPF Data                                    | false                                  |
+====================================================================================================
+
+Information: There are 385 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'prob2'
+Module: DW01_inc_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_inc_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Added key list 'DesignWare' to design 'prob2'. (DDB-72)
+Information: The register 'max_pool_cnt_reg[0><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[0><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[0><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[0><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[0><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[0><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[1><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[1><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[1><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[1><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[1><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[1><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[2><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[2><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[2><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[2><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[2><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[2><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[3><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[3><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[3><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[3><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[3><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[3><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[4><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[4><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[4><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[4><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[4><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[4><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[5><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[5><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[5><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[5><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[5><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[5><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[6><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[6><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[6><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[6><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[6><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[6><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[7><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[7><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[7><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[7><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[7><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[7><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[8><5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[8><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[8><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[8><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[8><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'max_pool_cnt_reg[8><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[0><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[0><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[0><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[0><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[0><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[1><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[1><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[1><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[1><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[1><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[2><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[2><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[2><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[2><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[2><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[3><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[3><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[3><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[3><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[3><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[4><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[4><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[4><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[4><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[4><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[5><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[5><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[5><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[5><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[5><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[6><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[6><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[6><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[6><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[6><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[7><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[7><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[7><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[7><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[7><0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[8><4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[8><3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[8><2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[8><1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pos_reg[8><0]' is a constant and will be removed. (OPT-1206)
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=11". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=7". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'memory' in 'prob2'. (LINK-5)
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+  Beginning Implementation Selection
+  ----------------------------------
+Module: DW01_sub_width6, Ports: 20, Input: 13, Output: 7, Inout: 0
+Module: DW01_sub_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_sub_0'
+  Mapping 'prob2_DW_cmp_0'
+  Processing 'prob2_DW01_sub_1'
+Module: DW01_dec_width6, Ports: 12, Input: 6, Output: 6, Inout: 0
+Module: DW01_dec_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_dec_0'
+Module: DW01_add_width7, Ports: 23, Input: 15, Output: 8, Inout: 0
+Module: DW01_add_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_add_0'
+Module: DW01_add_width11, Ports: 35, Input: 23, Output: 12, Inout: 0
+Module: DW01_add_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_add_1'
+  Processing 'prob2_DW01_add_2'
+  Processing 'prob2_DW01_add_3'
+  Processing 'prob2_DW01_add_4'
+  Processing 'prob2_DW01_add_5'
+  Processing 'prob2_DW01_add_6'
+  Processing 'prob2_DW01_add_7'
+  Processing 'prob2_DW01_add_8'
+  Processing 'prob2_DW01_add_9'
+  Processing 'prob2_DW01_add_10'
+Module: DW01_inc_width7, Ports: 14, Input: 7, Output: 7, Inout: 0
+Module: DW01_inc_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_inc_0_DW01_inc_3'
+  Processing 'prob2_DW01_add_11'
+  Processing 'prob2_DW01_add_12'
+  Processing 'prob2_DW01_add_13'
+  Processing 'prob2_DW01_add_14'
+  Processing 'prob2_DW01_add_15'
+  Processing 'prob2_DW01_add_16'
+  Processing 'prob2_DW01_add_17'
+  Processing 'prob2_DW01_add_18'
+  Processing 'prob2_DW01_add_19'
+Module: DW01_inc_width11, Ports: 22, Input: 11, Output: 11, Inout: 0
+Module: DW01_inc_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_inc_1_DW01_inc_4'
+Module: DW_div_uns_a_width7_b_width3, Ports: 21, Input: 10, Output: 11, Inout: 0
+Module: DW_div_uns_a_width7_b_width3, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW_div_uns_a_width7_b_width3'
+Module: DW_div_a_width7_b_width3_tc_mode0_rem_mode1, Ports: 21, Input: 10, Output: 11, Inout: 0
+Module: DW_div_a_width7_b_width3_tc_mode0_rem_mode1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW_div_a_width7_b_width3_tc_mode0_rem_mode1'
+Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
+Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW_div_uns_0'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Processing 'prob2_DW_div_uns_1'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+  Mapping 'DW01_add'
+Module: DW01_sub_width7, Ports: 23, Input: 15, Output: 8, Inout: 0
+Module: DW01_sub_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_sub_2'
+Module: DW01_sub_width11, Ports: 35, Input: 23, Output: 12, Inout: 0
+Module: DW01_sub_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_sub_3'
+Module: DW01_dec_width11, Ports: 22, Input: 11, Output: 11, Inout: 0
+Module: DW01_dec_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_dec_1'
+Module: DW01_dec_width7, Ports: 14, Input: 7, Output: 7, Inout: 0
+Module: DW01_dec_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'prob2_DW01_dec_2'
+  Processing 'prob2_DW01_inc_2_DW01_inc_5'
+  Mapping 'prob2_DW_cmp_1'
+Module: DW01_add_width18, Ports: 56, Input: 37, Output: 19, Inout: 0
+Module: DW01_add_width18, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width18' (rpl)
+  Processing 'DW01_add_width18'
+Module: DW01_add_width19, Ports: 59, Input: 39, Output: 20, Inout: 0
+Module: DW01_add_width19, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width19' (rpl)
+  Processing 'DW01_add_width19'
+Module: DW01_add_width20, Ports: 62, Input: 41, Output: 21, Inout: 0
+Module: DW01_add_width20, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width20' (rpl)
+  Processing 'DW01_add_width20'
+Module: DW01_add_width21, Ports: 65, Input: 43, Output: 22, Inout: 0
+Module: DW01_add_width21, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width21' (rpl)
+  Processing 'DW01_add_width21'
+Module: DW01_add_width22, Ports: 68, Input: 45, Output: 23, Inout: 0
+Module: DW01_add_width22, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width22' (rpl)
+  Processing 'DW01_add_width22'
+Module: DW01_add_width32, Ports: 98, Input: 65, Output: 33, Inout: 0
+Module: DW01_add_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width32' (rpl)
+  Processing 'DW01_add_width32'
+Module: DW01_add_width24, Ports: 74, Input: 49, Output: 25, Inout: 0
+Module: DW01_add_width24, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width24' (rpl)
+  Processing 'DW01_add_width24'
+Module: DW01_add_width25, Ports: 77, Input: 51, Output: 26, Inout: 0
+Module: DW01_add_width25, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width25' (rpl)
+  Processing 'DW01_add_width25'
+Module: DW01_add_width27, Ports: 83, Input: 55, Output: 28, Inout: 0
+Module: DW01_add_width27, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width27' (rpl)
+  Processing 'DW01_add_width27'
+  Building model 'DW01_add_width11' (rpl)
+  Processing 'DW01_add_width11'
+  Processing 'prob2_DW01_add_20'
+  Processing 'prob2_DW01_add_21'
+  Processing 'prob2_DW01_add_22'
+  Processing 'prob2_DW01_add_23'
+  Processing 'prob2_DW01_add_24'
+  Processing 'prob2_DW01_add_25'
+  Mapping 'prob2_DW_mult_tc_0'
+  Processing 'prob2_DW01_add_26'
+  Mapping 'prob2_DW_mult_tc_1'
+  Mapping 'prob2_DW_mult_tc_2'
+  Processing 'prob2_DW01_add_27'
+  Mapping 'prob2_DW_mult_tc_3'
+  Mapping 'prob2_DW_mult_tc_4'
+  Processing 'prob2_DW01_add_28'
+  Mapping 'prob2_DW_mult_tc_5'
+  Mapping 'prob2_DW_mult_tc_6'
+  Processing 'prob2_DW01_add_29'
+  Mapping 'prob2_DW_mult_tc_7'
+  Mapping 'prob2_DW_mult_tc_8'
+  Processing 'prob2_DW01_add_30'
+  Mapping 'prob2_DW_mult_tc_9'
+  Mapping 'prob2_DW_mult_tc_10'
+  Processing 'prob2_DW01_add_31'
+  Mapping 'prob2_DW_mult_uns_0'
+
+  Beginning Mapping Optimizations  (Medium effort)
+  -------------------------------
+Module: DW01_add_width32, Ports: 98, Input: 65, Output: 33, Inout: 0
+Module: DW01_add_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Mapping Optimization (Phase 1)
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:51   83462.3      1.70    2986.7    5694.6                          
+    0:00:51   83462.3      1.70    2986.7    5694.6                          
+    0:01:02   84262.7      0.76     342.3     134.5 *cell*185740/U1/Z        
+    0:01:02   84103.9      0.43     136.7     134.5 *cell*185740/U163/ZN     
+    0:01:03   83997.2      0.28      58.0     134.5 *cell*185740/*cell*185870/ZN
+    0:01:03   83913.7      0.22      23.9     134.5 *cell*185740/*cell*185930/ZN
+    0:01:03   83878.8      0.22      23.9     134.5 *cell*185740/U61/ZN      
+    0:01:03   83863.4      0.22      23.9     134.5 *cell*185740/*cell*185919/ZN
+    0:01:03   83845.6      0.22      22.9     134.5 *cell*185740/U36/ZN      
+    0:01:03   83806.8      0.20      15.9     134.5 *cell*185740/*cell*186008/ZN
+    0:01:03   84299.1      0.62     249.5     134.5 *cell*186029/U1/Z        
+    0:01:03   84116.9      0.23      34.0     134.5 *cell*186029/*cell*186117/ZN
+    0:01:04   84019.3      0.16      19.9     134.5 *cell*186029/*cell*186164/ZN
+    0:01:04   83957.0      0.15      13.5     134.5 *cell*186029/U136/ZN     
+    0:01:04   83927.3      0.15      13.5     134.5 *cell*186029/*cell*186108/ZN
+    0:01:04   83903.8      0.14      11.4     134.5 *cell*186029/U15/ZN      
+    0:01:04   83879.4      0.14      11.1     134.5 *cell*186029/*cell*186221/ZN
+    0:01:05   84248.3      0.00       0.1      74.6                          
+    0:01:05   84248.3      0.00       0.1      74.6                          
+    0:01:05   84248.3      0.00       0.1      74.6                          
+    0:01:05   84248.3      0.00       0.1      74.6                          
+    0:01:05   84248.3      0.00       0.1      74.6                          
+    0:01:08   62063.4      0.00       0.1       0.0                          
+    0:01:09   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:10   61886.8      0.00       0.1       0.0                          
+    0:01:11   61870.8      0.00       0.1       0.0                          
+
+
+  Beginning Area-Recovery Phase  (max_area 0)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:01:11   61870.8      0.00       0.1       0.0                          
+    0:01:11   61870.8      0.00       0.1       0.0                          
+    0:01:14   60990.3      0.00       0.1       0.0                          
+    0:01:15   60386.3      0.00       0.1       0.0                          
+    0:01:16   59870.7      0.00       0.1       0.0                          
+    0:01:16   59723.9      0.00       0.1       0.0                          
+    0:01:16   59693.9      0.00       0.1       0.0                          
+    0:01:16   59683.5      0.00       0.1       0.0                          
+    0:01:17   59672.8      0.00       0.1       0.0                          
+    0:01:17   59664.3      0.00       0.1       0.0                          
+    0:01:17   59654.8      0.00       0.1       0.0                          
+    0:01:17   59650.0      0.00       0.1       0.0                          
+    0:01:17   59644.6      0.00       0.1       0.0                          
+    0:01:17   59639.3      0.00       0.1       0.0                          
+    0:01:17   59634.8      0.00       0.1       0.0                          
+    0:01:17   59631.1      0.00       0.1       0.0                          
+    0:01:17   59627.4      0.00       0.1       0.0                          
+    0:01:17   59623.6      0.00       0.1       0.0                          
+    0:01:17   59619.1      0.00       0.1       0.0                          
+    0:01:17   59613.8      0.00       0.1       0.0                          
+    0:01:17   59610.1      0.00       0.1       0.0                          
+    0:01:17   59606.1      0.00       0.1       0.0                          
+    0:01:17   59602.4      0.00       0.1       0.0                          
+    0:01:17   59599.2      0.00       0.1       0.0                          
+    0:01:17   59598.1      0.00       0.1       0.0                          
+    0:01:17   59597.6      0.00       0.1       0.0                          
+    0:01:18   59597.0      0.00       0.1       0.0                          
+    0:01:18   59596.5      0.00       0.1       0.0                          
+    0:01:18   59596.0      0.00       0.1       0.0                          
+    0:01:18   59595.4      0.00       0.1       0.0                          
+    0:01:18   59594.9      0.00       0.1       0.0                          
+    0:01:18   59594.4      0.00       0.1       0.0                          
+    0:01:18   59593.8      0.00       0.1       0.0                          
+    0:01:18   59593.3      0.00       0.1       0.0                          
+    0:01:18   59592.8      0.00       0.1       0.0                          
+    0:01:18   59592.2      0.00       0.1       0.0                          
+    0:01:18   59591.7      0.00       0.1       0.0                          
+    0:01:18   59591.2      0.00       0.1       0.0                          
+    0:01:18   59590.6      0.00       0.1       0.0                          
+    0:01:18   59590.1      0.00       0.1       0.0                          
+    0:01:18   59589.6      0.00       0.1       0.0                          
+    0:01:18   59589.1      0.00       0.1       0.0                          
+    0:01:18   59589.1      0.00       0.1       0.0                          
+    0:01:18   59589.1      0.00       0.1       0.0                          
+    0:01:18   59579.5      0.00       0.1       0.0                          
+    0:01:18   59579.5      0.00       0.1       0.0                          
+    0:01:18   59579.5      0.00       0.1       0.0                          
+    0:01:18   59579.5      0.00       0.1       0.0                          
+    0:01:18   59579.5      0.00       0.1       0.0                          
+    0:01:18   59579.5      0.00       0.1       0.0                          
+    0:01:19   59481.6      0.00       0.1       0.0                          
+    0:01:19   59408.7      0.00       0.1       0.0                          
+    0:01:19   59289.5      0.00       0.1       0.0                          
+    0:01:19   59150.7      0.00       0.1       0.0                          
+    0:01:20   59052.3      0.00       0.1       0.0                          
+    0:01:20   59001.5      0.00       0.1       0.0                          
+    0:01:22   58885.2      0.00       0.1       0.0                          
+    0:01:23   58698.5      0.00       0.1       0.0                          
+    0:01:24   58570.0      0.00       0.1       0.0                          
+    0:01:24   58426.4      0.00       0.1       0.0                          
+    0:01:24   58296.8      0.00       0.1       0.0                          
+    0:01:25   58270.5      0.00       0.1       0.0                          
+    0:01:25   58269.7      0.00       0.1       0.0                          
+    0:01:25   58262.5      0.00       0.1       0.0                          
+    0:01:26   58259.3      0.00       0.1       0.0                          
+    0:01:27   58259.3      0.00       0.1       0.0                          
+    0:01:27   58259.3      0.00       0.1       0.0                          
+    0:01:27   58259.3      0.00       0.1       0.0                          
+    0:01:27   58259.3      0.00       0.1       0.0                          
+    0:01:27   58259.3      0.00       0.1       0.0                          
+    0:01:27   58259.3      0.00       0.1       0.0                          
+    0:01:27   58259.3      0.00       0.1       0.0                          
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'prob2' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 7272 load(s), 1 driver(s), 2 inout(s)
+CPU Load: 9%, Ram Free: 0 GB, Swap Free: 7 GB, Work Disk Free: 504 GB, Tmp Disk Free: 24 GB
+Information: Total number of MV cells in the design.
+----------------------------------------------------------------------------------------------------
+ MV Cells                                           Total Number                                   
+----------------------------------------------------------------------------------------------------
+ Level Shifter:                                     0                                             
+ Enable Level Shifter:                              0                                             
+ Isolation Cell:                                    0                                             
+ Retention Cell:                                    0                                             
+ Retention Clamp Cell:                              0                                             
+ Switch Cell:                                       0                                             
+ Always-On Cell:                                    0                                             
+ Repeater Cell:                                     0                                             
+
+----------------------------------------------------------------------------------------------------
+Unmapped MV Cells 
+----------------------------------------------------------------------------------------------------
+0 Isolation Cells are unmapped 
+0 Retention Clamp Cells are unmapped 
+----------------------------------------------------------------------------------------------------
+1
+# Comment "ungroup" line to maybe see some submodules
+if { [sizeof_collection [get_cells * -filter "is_hierarchical==true"]] > 0 } {
+   ungroup -all -flatten -simple_names
+   }
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=11". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Information: Building the design 'memory' instantiated from design 'prob2' with
+	the parameters "DATA_WIDTH=8,ADDR_WIDTH=7". (HDL-193)
+Warning: Cannot find the design 'memory' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'memory' in 'prob2'. (LINK-5)
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Information: Updating graph... (UID-83)
+Warning: Design 'prob2' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+1
+# compile -map_effort medium    # May help, or maybe not
+#===== Reports
+write -format verilog -output prob2.vg -hierarchy $NameDesign
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Writing verilog file '/home/will02/Documents/hw4/prob2.vg'.
+1
+report_area               > prob2.area
+report_cell               > prob2.cell
+report_hierarchy          > prob2.hier
+report_net                > prob2.net
+report_power              > prob2.pow
+report_timing -nworst 10  > prob2.tim
+check_timing
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Warning: The following end-points are not constrained for maximum delay.
+
+End point
+---------------
+filter_we_reg/D
+image_we_reg/D
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+check_design
+Warning: Design 'prob2' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+ 
+****************************************
+check_design summary:
+Version:     W-2024.09-SP1
+Date:        Thu Mar 20 18:30:51 2025
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                      1
+    Multiply driven inputs (LINT-6)                                 1
+
+Nets                                                               17
+    Unloaded nets (LINT-2)                                         17
+
+Tristate                                                          376
+    A tristate bus has a non tri-state driver (LINT-34)           376
+--------------------------------------------------------------------------------
+
+Warning: In design 'prob2', net 'n27735' driven by pin 'U1/**logic_1**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27734' driven by pin 'U28901/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27733' driven by pin 'U28900/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27732' driven by pin 'U28899/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27731' driven by pin 'U28898/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27730' driven by pin 'U28897/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27729' driven by pin 'U28896/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27728' driven by pin 'U28895/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27727' driven by pin 'U28894/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27726' driven by pin 'U28893/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27725' driven by pin 'U28892/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27724' driven by pin 'U28891/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n27723' driven by pin 'U28890/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n4' driven by pin 'U24/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n3' driven by pin 'U23/**logic_1**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n2' driven by pin 'U22/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', net 'n1' driven by pin 'U21/**logic_0**' has no loads. (LINT-2)
+Warning: In design 'prob2', input port 'clk' drives wired logic; the port direction may have been specified incorrectly. (LINT-6)
+Warning: In design 'prob2', three-state bus 'filter_din[0]' has non three-state driver 'filter_din_reg[0]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[1]' has non three-state driver 'filter_din_reg[1]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[2]' has non three-state driver 'filter_din_reg[2]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[3]' has non three-state driver 'filter_din_reg[3]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[4]' has non three-state driver 'filter_din_reg[4]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[5]' has non three-state driver 'filter_din_reg[5]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[6]' has non three-state driver 'filter_din_reg[6]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[7]' has non three-state driver 'filter_din_reg[7]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[8]' has non three-state driver 'filter_din_reg[8]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[9]' has non three-state driver 'filter_din_reg[9]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[10]' has non three-state driver 'filter_din_reg[10]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[11]' has non three-state driver 'filter_din_reg[11]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[12]' has non three-state driver 'filter_din_reg[12]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[13]' has non three-state driver 'filter_din_reg[13]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[14]' has non three-state driver 'filter_din_reg[14]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[15]' has non three-state driver 'filter_din_reg[15]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[16]' has non three-state driver 'filter_din_reg[16]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[17]' has non three-state driver 'filter_din_reg[17]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[18]' has non three-state driver 'filter_din_reg[18]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[19]' has non three-state driver 'filter_din_reg[19]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[20]' has non three-state driver 'filter_din_reg[20]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[21]' has non three-state driver 'filter_din_reg[21]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[22]' has non three-state driver 'filter_din_reg[22]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[23]' has non three-state driver 'filter_din_reg[23]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[24]' has non three-state driver 'filter_din_reg[24]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[25]' has non three-state driver 'filter_din_reg[25]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[26]' has non three-state driver 'filter_din_reg[26]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[27]' has non three-state driver 'filter_din_reg[27]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[28]' has non three-state driver 'filter_din_reg[28]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[29]' has non three-state driver 'filter_din_reg[29]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[30]' has non three-state driver 'filter_din_reg[30]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[31]' has non three-state driver 'filter_din_reg[31]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[32]' has non three-state driver 'filter_din_reg[32]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[33]' has non three-state driver 'filter_din_reg[33]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[34]' has non three-state driver 'filter_din_reg[34]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[35]' has non three-state driver 'filter_din_reg[35]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[36]' has non three-state driver 'filter_din_reg[36]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[37]' has non three-state driver 'filter_din_reg[37]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[38]' has non three-state driver 'filter_din_reg[38]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[39]' has non three-state driver 'filter_din_reg[39]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[40]' has non three-state driver 'filter_din_reg[40]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[41]' has non three-state driver 'filter_din_reg[41]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[42]' has non three-state driver 'filter_din_reg[42]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[43]' has non three-state driver 'filter_din_reg[43]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[44]' has non three-state driver 'filter_din_reg[44]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[45]' has non three-state driver 'filter_din_reg[45]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[46]' has non three-state driver 'filter_din_reg[46]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[47]' has non three-state driver 'filter_din_reg[47]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[48]' has non three-state driver 'filter_din_reg[48]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[49]' has non three-state driver 'filter_din_reg[49]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[50]' has non three-state driver 'filter_din_reg[50]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[51]' has non three-state driver 'filter_din_reg[51]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[52]' has non three-state driver 'filter_din_reg[52]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[53]' has non three-state driver 'filter_din_reg[53]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[54]' has non three-state driver 'filter_din_reg[54]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[55]' has non three-state driver 'filter_din_reg[55]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[56]' has non three-state driver 'filter_din_reg[56]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[57]' has non three-state driver 'filter_din_reg[57]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[58]' has non three-state driver 'filter_din_reg[58]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[59]' has non three-state driver 'filter_din_reg[59]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[60]' has non three-state driver 'filter_din_reg[60]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[61]' has non three-state driver 'filter_din_reg[61]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[62]' has non three-state driver 'filter_din_reg[62]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[63]' has non three-state driver 'filter_din_reg[63]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[64]' has non three-state driver 'filter_din_reg[64]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[65]' has non three-state driver 'filter_din_reg[65]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[66]' has non three-state driver 'filter_din_reg[66]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[67]' has non three-state driver 'filter_din_reg[67]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[68]' has non three-state driver 'filter_din_reg[68]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[69]' has non three-state driver 'filter_din_reg[69]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[70]' has non three-state driver 'filter_din_reg[70]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[71]' has non three-state driver 'filter_din_reg[71]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[72]' has non three-state driver 'filter_din_reg[72]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[73]' has non three-state driver 'filter_din_reg[73]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[74]' has non three-state driver 'filter_din_reg[74]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[75]' has non three-state driver 'filter_din_reg[75]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[76]' has non three-state driver 'filter_din_reg[76]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[77]' has non three-state driver 'filter_din_reg[77]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[78]' has non three-state driver 'filter_din_reg[78]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[79]' has non three-state driver 'filter_din_reg[79]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[80]' has non three-state driver 'filter_din_reg[80]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[81]' has non three-state driver 'filter_din_reg[81]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[82]' has non three-state driver 'filter_din_reg[82]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[83]' has non three-state driver 'filter_din_reg[83]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[84]' has non three-state driver 'filter_din_reg[84]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[85]' has non three-state driver 'filter_din_reg[85]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[86]' has non three-state driver 'filter_din_reg[86]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_din[87]' has non three-state driver 'filter_din_reg[87]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[0]' has non three-state driver 'filter_addr_reg[0]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[1]' has non three-state driver 'filter_addr_reg[1]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[2]' has non three-state driver 'filter_addr_reg[2]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[3]' has non three-state driver 'filter_addr_reg[3]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[4]' has non three-state driver 'filter_addr_reg[4]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[5]' has non three-state driver 'filter_addr_reg[5]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[6]' has non three-state driver 'filter_addr_reg[6]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[7]' has non three-state driver 'filter_addr_reg[7]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[8]' has non three-state driver 'filter_addr_reg[8]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[9]' has non three-state driver 'filter_addr_reg[9]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[10]' has non three-state driver 'filter_addr_reg[10]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[11]' has non three-state driver 'filter_addr_reg[11]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[12]' has non three-state driver 'filter_addr_reg[12]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[13]' has non three-state driver 'filter_addr_reg[13]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[14]' has non three-state driver 'filter_addr_reg[14]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[15]' has non three-state driver 'filter_addr_reg[15]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[16]' has non three-state driver 'filter_addr_reg[16]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[17]' has non three-state driver 'filter_addr_reg[17]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[18]' has non three-state driver 'filter_addr_reg[18]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[19]' has non three-state driver 'filter_addr_reg[19]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[20]' has non three-state driver 'filter_addr_reg[20]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[21]' has non three-state driver 'filter_addr_reg[21]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[22]' has non three-state driver 'filter_addr_reg[22]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[23]' has non three-state driver 'filter_addr_reg[23]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[24]' has non three-state driver 'filter_addr_reg[24]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[25]' has non three-state driver 'filter_addr_reg[25]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[26]' has non three-state driver 'filter_addr_reg[26]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[27]' has non three-state driver 'filter_addr_reg[27]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[28]' has non three-state driver 'filter_addr_reg[28]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[29]' has non three-state driver 'filter_addr_reg[29]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[30]' has non three-state driver 'filter_addr_reg[30]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[31]' has non three-state driver 'filter_addr_reg[31]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[32]' has non three-state driver 'filter_addr_reg[32]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[33]' has non three-state driver 'filter_addr_reg[33]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[34]' has non three-state driver 'filter_addr_reg[34]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[35]' has non three-state driver 'filter_addr_reg[35]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[36]' has non three-state driver 'filter_addr_reg[36]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[37]' has non three-state driver 'filter_addr_reg[37]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[38]' has non three-state driver 'filter_addr_reg[38]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[39]' has non three-state driver 'filter_addr_reg[39]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[40]' has non three-state driver 'filter_addr_reg[40]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[41]' has non three-state driver 'filter_addr_reg[41]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[42]' has non three-state driver 'filter_addr_reg[42]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[43]' has non three-state driver 'filter_addr_reg[43]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[44]' has non three-state driver 'filter_addr_reg[44]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[45]' has non three-state driver 'filter_addr_reg[45]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[46]' has non three-state driver 'filter_addr_reg[46]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[47]' has non three-state driver 'filter_addr_reg[47]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[48]' has non three-state driver 'filter_addr_reg[48]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[49]' has non three-state driver 'filter_addr_reg[49]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[50]' has non three-state driver 'filter_addr_reg[50]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[51]' has non three-state driver 'filter_addr_reg[51]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[52]' has non three-state driver 'filter_addr_reg[52]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[53]' has non three-state driver 'filter_addr_reg[53]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[54]' has non three-state driver 'filter_addr_reg[54]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[55]' has non three-state driver 'filter_addr_reg[55]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[56]' has non three-state driver 'filter_addr_reg[56]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[57]' has non three-state driver 'filter_addr_reg[57]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[58]' has non three-state driver 'filter_addr_reg[58]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[59]' has non three-state driver 'filter_addr_reg[59]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[60]' has non three-state driver 'filter_addr_reg[60]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[61]' has non three-state driver 'filter_addr_reg[61]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[62]' has non three-state driver 'filter_addr_reg[62]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[63]' has non three-state driver 'filter_addr_reg[63]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[64]' has non three-state driver 'filter_addr_reg[64]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[65]' has non three-state driver 'filter_addr_reg[65]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[66]' has non three-state driver 'filter_addr_reg[66]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[67]' has non three-state driver 'filter_addr_reg[67]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[68]' has non three-state driver 'filter_addr_reg[68]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[69]' has non three-state driver 'filter_addr_reg[69]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[70]' has non three-state driver 'filter_addr_reg[70]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[71]' has non three-state driver 'filter_addr_reg[71]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[72]' has non three-state driver 'filter_addr_reg[72]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[73]' has non three-state driver 'filter_addr_reg[73]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[74]' has non three-state driver 'filter_addr_reg[74]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[75]' has non three-state driver 'filter_addr_reg[75]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_addr[76]' has non three-state driver 'filter_addr_reg[76]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'filter_we' has non three-state driver 'filter_we_reg/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[0]' has non three-state driver 'image_din_reg[0]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[1]' has non three-state driver 'image_din_reg[1]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[2]' has non three-state driver 'image_din_reg[2]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[3]' has non three-state driver 'image_din_reg[3]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[4]' has non three-state driver 'image_din_reg[4]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[5]' has non three-state driver 'image_din_reg[5]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[6]' has non three-state driver 'image_din_reg[6]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[7]' has non three-state driver 'image_din_reg[7]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[8]' has non three-state driver 'image_din_reg[8]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[9]' has non three-state driver 'image_din_reg[9]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[10]' has non three-state driver 'image_din_reg[10]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[11]' has non three-state driver 'image_din_reg[11]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[12]' has non three-state driver 'image_din_reg[12]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[13]' has non three-state driver 'image_din_reg[13]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[14]' has non three-state driver 'image_din_reg[14]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[15]' has non three-state driver 'image_din_reg[15]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[16]' has non three-state driver 'image_din_reg[16]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[17]' has non three-state driver 'image_din_reg[17]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[18]' has non three-state driver 'image_din_reg[18]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[19]' has non three-state driver 'image_din_reg[19]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[20]' has non three-state driver 'image_din_reg[20]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[21]' has non three-state driver 'image_din_reg[21]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[22]' has non three-state driver 'image_din_reg[22]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[23]' has non three-state driver 'image_din_reg[23]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[24]' has non three-state driver 'image_din_reg[24]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[25]' has non three-state driver 'image_din_reg[25]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[26]' has non three-state driver 'image_din_reg[26]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[27]' has non three-state driver 'image_din_reg[27]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[28]' has non three-state driver 'image_din_reg[28]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[29]' has non three-state driver 'image_din_reg[29]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[30]' has non three-state driver 'image_din_reg[30]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[31]' has non three-state driver 'image_din_reg[31]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[32]' has non three-state driver 'image_din_reg[32]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[33]' has non three-state driver 'image_din_reg[33]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[34]' has non three-state driver 'image_din_reg[34]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[35]' has non three-state driver 'image_din_reg[35]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[36]' has non three-state driver 'image_din_reg[36]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[37]' has non three-state driver 'image_din_reg[37]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[38]' has non three-state driver 'image_din_reg[38]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[39]' has non three-state driver 'image_din_reg[39]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[40]' has non three-state driver 'image_din_reg[40]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[41]' has non three-state driver 'image_din_reg[41]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[42]' has non three-state driver 'image_din_reg[42]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[43]' has non three-state driver 'image_din_reg[43]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[44]' has non three-state driver 'image_din_reg[44]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[45]' has non three-state driver 'image_din_reg[45]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[46]' has non three-state driver 'image_din_reg[46]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[47]' has non three-state driver 'image_din_reg[47]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[48]' has non three-state driver 'image_din_reg[48]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[49]' has non three-state driver 'image_din_reg[49]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[50]' has non three-state driver 'image_din_reg[50]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[51]' has non three-state driver 'image_din_reg[51]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[52]' has non three-state driver 'image_din_reg[52]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[53]' has non three-state driver 'image_din_reg[53]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[54]' has non three-state driver 'image_din_reg[54]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[55]' has non three-state driver 'image_din_reg[55]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[56]' has non three-state driver 'image_din_reg[56]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[57]' has non three-state driver 'image_din_reg[57]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[58]' has non three-state driver 'image_din_reg[58]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[59]' has non three-state driver 'image_din_reg[59]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[60]' has non three-state driver 'image_din_reg[60]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[61]' has non three-state driver 'image_din_reg[61]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[62]' has non three-state driver 'image_din_reg[62]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[63]' has non three-state driver 'image_din_reg[63]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[64]' has non three-state driver 'image_din_reg[64]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[65]' has non three-state driver 'image_din_reg[65]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[66]' has non three-state driver 'image_din_reg[66]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[67]' has non three-state driver 'image_din_reg[67]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[68]' has non three-state driver 'image_din_reg[68]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[69]' has non three-state driver 'image_din_reg[69]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[70]' has non three-state driver 'image_din_reg[70]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[71]' has non three-state driver 'image_din_reg[71]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[72]' has non three-state driver 'image_din_reg[72]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[73]' has non three-state driver 'image_din_reg[73]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[74]' has non three-state driver 'image_din_reg[74]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[75]' has non three-state driver 'image_din_reg[75]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[76]' has non three-state driver 'image_din_reg[76]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[77]' has non three-state driver 'image_din_reg[77]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[78]' has non three-state driver 'image_din_reg[78]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[79]' has non three-state driver 'image_din_reg[79]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[80]' has non three-state driver 'image_din_reg[80]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[81]' has non three-state driver 'image_din_reg[81]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[82]' has non three-state driver 'image_din_reg[82]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[83]' has non three-state driver 'image_din_reg[83]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[84]' has non three-state driver 'image_din_reg[84]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[85]' has non three-state driver 'image_din_reg[85]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[86]' has non three-state driver 'image_din_reg[86]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_din[87]' has non three-state driver 'image_din_reg[87]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[0]' has non three-state driver 'image_addr_reg[0]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[1]' has non three-state driver 'image_addr_reg[1]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[2]' has non three-state driver 'image_addr_reg[2]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[3]' has non three-state driver 'image_addr_reg[3]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[4]' has non three-state driver 'image_addr_reg[4]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[5]' has non three-state driver 'image_addr_reg[5]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[6]' has non three-state driver 'image_addr_reg[6]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[7]' has non three-state driver 'image_addr_reg[7]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[8]' has non three-state driver 'image_addr_reg[8]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[9]' has non three-state driver 'image_addr_reg[9]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[10]' has non three-state driver 'image_addr_reg[10]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[11]' has non three-state driver 'image_addr_reg[11]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[12]' has non three-state driver 'image_addr_reg[12]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[13]' has non three-state driver 'image_addr_reg[13]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[14]' has non three-state driver 'image_addr_reg[14]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[15]' has non three-state driver 'image_addr_reg[15]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[16]' has non three-state driver 'image_addr_reg[16]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[17]' has non three-state driver 'image_addr_reg[17]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[18]' has non three-state driver 'image_addr_reg[18]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[19]' has non three-state driver 'image_addr_reg[19]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[20]' has non three-state driver 'image_addr_reg[20]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[21]' has non three-state driver 'image_addr_reg[21]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[22]' has non three-state driver 'image_addr_reg[22]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[23]' has non three-state driver 'image_addr_reg[23]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[24]' has non three-state driver 'image_addr_reg[24]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[25]' has non three-state driver 'image_addr_reg[25]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[26]' has non three-state driver 'image_addr_reg[26]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[27]' has non three-state driver 'image_addr_reg[27]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[28]' has non three-state driver 'image_addr_reg[28]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[29]' has non three-state driver 'image_addr_reg[29]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[30]' has non three-state driver 'image_addr_reg[30]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[31]' has non three-state driver 'image_addr_reg[31]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[32]' has non three-state driver 'image_addr_reg[32]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[33]' has non three-state driver 'image_addr_reg[33]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[34]' has non three-state driver 'image_addr_reg[34]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[35]' has non three-state driver 'image_addr_reg[35]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[36]' has non three-state driver 'image_addr_reg[36]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[37]' has non three-state driver 'image_addr_reg[37]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[38]' has non three-state driver 'image_addr_reg[38]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[39]' has non three-state driver 'image_addr_reg[39]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[40]' has non three-state driver 'image_addr_reg[40]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[41]' has non three-state driver 'image_addr_reg[41]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[42]' has non three-state driver 'image_addr_reg[42]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[43]' has non three-state driver 'image_addr_reg[43]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[44]' has non three-state driver 'image_addr_reg[44]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[45]' has non three-state driver 'image_addr_reg[45]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[46]' has non three-state driver 'image_addr_reg[46]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[47]' has non three-state driver 'image_addr_reg[47]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[48]' has non three-state driver 'image_addr_reg[48]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[49]' has non three-state driver 'image_addr_reg[49]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[50]' has non three-state driver 'image_addr_reg[50]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[51]' has non three-state driver 'image_addr_reg[51]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[52]' has non three-state driver 'image_addr_reg[52]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[53]' has non three-state driver 'image_addr_reg[53]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[54]' has non three-state driver 'image_addr_reg[54]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[55]' has non three-state driver 'image_addr_reg[55]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[56]' has non three-state driver 'image_addr_reg[56]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[57]' has non three-state driver 'image_addr_reg[57]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[58]' has non three-state driver 'image_addr_reg[58]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[59]' has non three-state driver 'image_addr_reg[59]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[60]' has non three-state driver 'image_addr_reg[60]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[61]' has non three-state driver 'image_addr_reg[61]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[62]' has non three-state driver 'image_addr_reg[62]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[63]' has non three-state driver 'image_addr_reg[63]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[64]' has non three-state driver 'image_addr_reg[64]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[65]' has non three-state driver 'image_addr_reg[65]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[66]' has non three-state driver 'image_addr_reg[66]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[67]' has non three-state driver 'image_addr_reg[67]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[68]' has non three-state driver 'image_addr_reg[68]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[69]' has non three-state driver 'image_addr_reg[69]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[70]' has non three-state driver 'image_addr_reg[70]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[71]' has non three-state driver 'image_addr_reg[71]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[72]' has non three-state driver 'image_addr_reg[72]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[73]' has non three-state driver 'image_addr_reg[73]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[74]' has non three-state driver 'image_addr_reg[74]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[75]' has non three-state driver 'image_addr_reg[75]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[76]' has non three-state driver 'image_addr_reg[76]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[77]' has non three-state driver 'image_addr_reg[77]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[78]' has non three-state driver 'image_addr_reg[78]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[79]' has non three-state driver 'image_addr_reg[79]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[80]' has non three-state driver 'image_addr_reg[80]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[81]' has non three-state driver 'image_addr_reg[81]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[82]' has non three-state driver 'image_addr_reg[82]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[83]' has non three-state driver 'image_addr_reg[83]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[84]' has non three-state driver 'image_addr_reg[84]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[85]' has non three-state driver 'image_addr_reg[85]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[86]' has non three-state driver 'image_addr_reg[86]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[87]' has non three-state driver 'image_addr_reg[87]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[88]' has non three-state driver 'image_addr_reg[88]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[89]' has non three-state driver 'image_addr_reg[89]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[90]' has non three-state driver 'image_addr_reg[90]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[91]' has non three-state driver 'image_addr_reg[91]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[92]' has non three-state driver 'image_addr_reg[92]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[93]' has non three-state driver 'image_addr_reg[93]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[94]' has non three-state driver 'image_addr_reg[94]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[95]' has non three-state driver 'image_addr_reg[95]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[96]' has non three-state driver 'image_addr_reg[96]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[97]' has non three-state driver 'image_addr_reg[97]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[98]' has non three-state driver 'image_addr_reg[98]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[99]' has non three-state driver 'image_addr_reg[99]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[100]' has non three-state driver 'image_addr_reg[100]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[101]' has non three-state driver 'image_addr_reg[101]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[102]' has non three-state driver 'image_addr_reg[102]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[103]' has non three-state driver 'image_addr_reg[103]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[104]' has non three-state driver 'image_addr_reg[104]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[105]' has non three-state driver 'image_addr_reg[105]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[106]' has non three-state driver 'image_addr_reg[106]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[107]' has non three-state driver 'image_addr_reg[107]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[108]' has non three-state driver 'image_addr_reg[108]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[109]' has non three-state driver 'image_addr_reg[109]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[110]' has non three-state driver 'image_addr_reg[110]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[111]' has non three-state driver 'image_addr_reg[111]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[112]' has non three-state driver 'image_addr_reg[112]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[113]' has non three-state driver 'image_addr_reg[113]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[114]' has non three-state driver 'image_addr_reg[114]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[115]' has non three-state driver 'image_addr_reg[115]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[116]' has non three-state driver 'image_addr_reg[116]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[117]' has non three-state driver 'image_addr_reg[117]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[118]' has non three-state driver 'image_addr_reg[118]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[119]' has non three-state driver 'image_addr_reg[119]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_addr[120]' has non three-state driver 'image_addr_reg[120]/Q'. (LINT-34)
+Warning: In design 'prob2', three-state bus 'image_we' has non three-state driver 'image_we_reg/Q'. (LINT-34)
+1
+exit
+
+Memory usage for this session 482 Mbytes.
+Memory usage for this session including child processes 482 Mbytes.
+CPU usage for this session 70 seconds ( 0.02 hours ).
+Elapsed time for this session 132 seconds ( 0.04 hours ).
+
+Thank you...
